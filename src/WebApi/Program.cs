@@ -1,30 +1,26 @@
-﻿using Serilog;
+﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using WebApi.Infrastructure.Extensions;
 using WebApi.Hubs;
 using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
+using WebApi.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
+var config = builder.Configuration;
+
 // Add services to the container.
-var configuration = new ConfigurationBuilder();
+var connectionString = config.GetConnectionString("KMShootDB");
 
-configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile("appsetting.Development.json", optional: true, reloadOnChange: true)
-    .AddJsonFile("appsetting.Production.json", optional: true);
-
-IConfigurationRoot config = configuration.Build();
-
-// Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Host.UseSerilog((context, configuration) => configuration
-    .ReadFrom.Configuration(context.Configuration));
+    .ReadFrom.Configuration(config));
 
 builder.Services.AddSignalR();
-
-builder.Services.ConnectDBService(builder.Configuration);
 
 builder.Services.AddCorsService(config);
 
