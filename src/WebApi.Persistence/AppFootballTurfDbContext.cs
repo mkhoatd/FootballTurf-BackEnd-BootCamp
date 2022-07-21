@@ -7,7 +7,7 @@ using WebApi.Domain.Entities;
 
 namespace WebApi.Persistence
 {
-    public class AppFootballTurfDbContext: DbContext
+    public class AppFootballTurfDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
@@ -36,10 +36,8 @@ namespace WebApi.Persistence
             IServiceCollection serviceCollection = new ServiceCollection();
 
             serviceCollection.AddLogging(builder => builder.AddFilter(DbLoggerCategory.Database.Command.Name, LogLevel.Information));
-#pragma warning disable CS8603 // Possible null reference return.
 
             return serviceCollection.BuildServiceProvider().GetService<ILoggerFactory>();
-#pragma warning restore CS8603 // Possible null reference return.
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Serilog;
-using WebApi.Domain.Entities;
+﻿using Serilog;
 using WebApi.Infrastructure.Extensions;
-using WebApi.Persistence;
 using WebApi.Hubs;
 using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
@@ -15,11 +12,15 @@ var configuration = new ConfigurationBuilder();
 
 configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile("appsetting.Development.json", optional: true, reloadOnChange: true)
     .AddJsonFile("appsetting.Production.json", optional: true);
 
 IConfigurationRoot config = configuration.Build();
 
-Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+// Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+
+builder.Host.UseSerilog((context, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration));
 
 builder.Services.AddSignalR();
 
@@ -41,7 +42,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettings>(config.GetSection("AppSettings"));
 
 builder.Services
-    .AddControllersWithViews()
+    .AddControllers()
     .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
 var app = builder.Build();
