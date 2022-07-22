@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebApi.Domain.Enum
+namespace WebApi.Domain.Enum;
+public enum TurfType
 {
-    public enum TurfType
-    {
-       Active,
-       InActive
-    }
+    San5,
+    San7
 }
