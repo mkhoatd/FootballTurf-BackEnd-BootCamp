@@ -12,5 +12,7 @@ namespace WebApi.Domain.Entities
         public byte[] PasswordSalt { get; set; }
         public UserRole Role { get; set; }
         public string PhoneNumber { get; set; }
+        public HashSet<Turf> Turfs { get; set; }
+        public HashSet<Schedule> Schedules { get; set; }
     }
 }
