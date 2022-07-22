@@ -5,6 +5,7 @@ using WebApi.Hubs;
 using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
 using WebApi.Persistence;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,7 @@ builder.Services.Configure<AppSettings>(config.GetSection("AppSettings"));
 
 builder.Services
     .AddControllers()
-    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+    .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
