@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
+using WebApi.DTOs;
 using WebApi.Hubs;
 using WebApi.Repository.Interface;
 using WebApi.Repository.Service;
@@ -20,11 +21,10 @@ namespace WebApi.Controllers
         private readonly UserManager<User> _userManager;
         private readonly ILogger<UsersController> _logger;
 
-        public UsersController(UserManager<User> userManager,
+        public UsersController(
             ILogger<UsersController> logger
             )
         {
-            _userManager = userManager;
             _logger = logger;
         }
 
@@ -38,6 +38,13 @@ namespace WebApi.Controllers
                 StatusCodes.Status200OK,
                 SuccessMessage.CreateUserSuccess,
                 null));
+        }
+
+        [HttpPost()]
+        public async Task<ActionResult<UserDto>> RegisterAsync(RegisterDto registerDto)
+        {
+            var user = new User(registerDto.Username, registerDto.Password);
+            return null;
         }
     }
 }

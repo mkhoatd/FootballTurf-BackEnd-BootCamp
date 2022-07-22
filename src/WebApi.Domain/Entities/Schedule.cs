@@ -11,7 +11,7 @@ public class Schedule : BaseEntity
     {
         get
         {
-            var startTime = DateTime.Today; //ngay hom nay, voi gio phut giay =0
+            var startTime = DateTime.Today.AddDays(1); //ngay hom sau, voi gio phut giay =0
             return startTime.AddMinutes((ScheduleIndex) * 30);
         }
     }

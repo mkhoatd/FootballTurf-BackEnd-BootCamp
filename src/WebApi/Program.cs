@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿global using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 using WebApi.Infrastructure.Extensions;
 using WebApi.Hubs;
@@ -14,7 +15,6 @@ var config = builder.Configuration;
 
 // Add services to the container.
 var connectionString = config.GetConnectionString("KMShootDB");
-
 builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -40,7 +40,11 @@ builder.Services.Configure<AppSettings>(config.GetSection("AppSettings"));
 
 builder.Services
     .AddControllers()
-    .AddJsonOptions(option => option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles);
+    .AddJsonOptions(option =>
+    {
+        option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        option.JsonSerializerOptions.PropertyNamingPolicy=JsonNamingPolicy.CamelCase;
+    });
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
