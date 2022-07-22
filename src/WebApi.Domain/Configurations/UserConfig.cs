@@ -12,8 +12,5 @@ public class UserConfig : IEntityTypeConfiguration<User>
         entity.HasMany(u => u.Turfs)
             .WithOne(t => t.Owner)
             .HasForeignKey(t => t.OwnerId);
-        entity.HasMany(u => u.Schedules)
-            .WithOne(s => s.Customer)
-            .HasForeignKey(s => s.CustomerId);
     }
 }

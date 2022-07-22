@@ -24,6 +24,4 @@ public class Schedule : BaseEntity
     }
     public Guid TurfId { get; set; }
     public Turf Turf { get; set; }
-    public Guid CustomerId { get; set; }
-    public User Customer { get; set; }
 }

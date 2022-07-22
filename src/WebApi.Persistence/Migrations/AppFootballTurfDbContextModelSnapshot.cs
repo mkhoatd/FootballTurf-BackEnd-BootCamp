@@ -51,9 +51,6 @@ namespace WebApi.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CustomerId")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("ScheduleIndex")
                         .HasColumnType("integer");
 
@@ -64,8 +61,6 @@ namespace WebApi.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("TurfId");
 
@@ -173,19 +168,11 @@ namespace WebApi.Persistence.Migrations
 
             modelBuilder.Entity("WebApi.Domain.Entities.Schedule", b =>
                 {
-                    b.HasOne("WebApi.Domain.Entities.User", "Customer")
-                        .WithMany("Schedules")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WebApi.Domain.Entities.Turf", "Turf")
                         .WithMany("Schedules")
                         .HasForeignKey("TurfId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Customer");
 
                     b.Navigation("Turf");
                 });
@@ -234,8 +221,6 @@ namespace WebApi.Persistence.Migrations
 
             modelBuilder.Entity("WebApi.Domain.Entities.User", b =>
                 {
-                    b.Navigation("Schedules");
-
                     b.Navigation("Turfs");
                 });
 #pragma warning restore 612, 618
