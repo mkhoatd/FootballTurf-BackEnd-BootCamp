@@ -6,7 +6,7 @@ using WebApi.Hubs;
 using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
 using WebApi.Persistence;
-using System.Text.Json;
+using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +25,11 @@ builder.Services.AddSignalR();
 
 builder.Services.AddCorsService(config);
 
-builder.Services.AddApplicationServices();
-
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddRepositoryServices();
+
+builder.Services.AddJwtService(config);
 
 builder.Services.AddAuthorization();
 
@@ -43,7 +45,7 @@ builder.Services
     .AddJsonOptions(option =>
     {
         option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-        option.JsonSerializerOptions.PropertyNamingPolicy=JsonNamingPolicy.CamelCase;
+        option.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
     });
 
 var app = builder.Build();
@@ -65,6 +67,10 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 // custom jwt auth middleware
 app.UseMiddleware<JwtMiddleware>();
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 
 app.UseEndpoints(endpoints =>
 {

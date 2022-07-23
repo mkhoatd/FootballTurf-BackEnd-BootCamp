@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\WebApi\WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Repository.Test", "test\WebApi.Repository.Test\WebApi.Repository.Test.csproj", "{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.BusinessLogic", "src\WebApi.BusinessLogic\WebApi.BusinessLogic.csproj", "{02FDE901-F641-4EF3-810E-453461F17A4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.BusinessServices", "src\WebApi.BusinessServices\WebApi.BusinessServices.csproj", "{C32D9359-D685-4CA1-805F-BCDB2406255C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02FDE901-F641-4EF3-810E-453461F17A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02FDE901-F641-4EF3-810E-453461F17A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02FDE901-F641-4EF3-810E-453461F17A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02FDE901-F641-4EF3-810E-453461F17A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C32D9359-D685-4CA1-805F-BCDB2406255C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32D9359-D685-4CA1-805F-BCDB2406255C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32D9359-D685-4CA1-805F-BCDB2406255C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C32D9359-D685-4CA1-805F-BCDB2406255C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -31,8 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebApi.BusinessLogic\WebApi.BusinessLogic.csproj" />
+    <ProjectReference Include="..\WebApi.BusinessServices\WebApi.BusinessServices.csproj" />
     <ProjectReference Include="..\WebApi.Infrastructure\WebApi.Infrastructure.csproj" />
     <ProjectReference Include="..\WebApi.Repository\WebApi.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs" />
   </ItemGroup>
 
 </Project>

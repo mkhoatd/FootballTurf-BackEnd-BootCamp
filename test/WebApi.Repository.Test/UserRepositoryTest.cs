@@ -5,15 +5,12 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
-using WebApi.Domain.Enum;
 using WebApi.Persistence;
-using WebApi.Repository.DTOs;
+using WebApi.Persistence;
 using WebApi.Repository.Implementation;
-using WebApi.Repository.Interface;
 using WebApi.Test.Common;
 using Xunit;
 
