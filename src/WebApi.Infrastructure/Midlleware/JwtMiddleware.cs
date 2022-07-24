@@ -19,13 +19,15 @@ namespace WebApi.Infrastructure.Midlleware
         public async Task Invoke(HttpContext context, IUserRepository userService, ITokenService tokenService)
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            var userId = tokenService.ValidateJwtToken(token);
-            if (userId != null)
+            if (token != null)
             {
-                // attach user to context on successful jwt validation
-                context.Items["User"] = await userService.GetUserById(userId);
+                var userId = tokenService.ValidateJwtToken(token);
+                if (userId != null)
+                {
+                    // attach user to context on successful jwt validation
+                    context.Items["User"] = await userService.GetUserById(userId);
+                }
             }
-
             await _next(context);
         }
     }

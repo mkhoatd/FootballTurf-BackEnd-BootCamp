@@ -12,46 +12,36 @@ namespace WebApi.Repository.Implementation
     public class UserRepository : IUserRepository
     {
         private readonly AppFootballTurfDbContext _context;
-        private readonly ITokenService _tokenService;
-        public UserRepository(AppFootballTurfDbContext context,
-            ITokenService tokenService)
+        public UserRepository(AppFootballTurfDbContext context)
         {
             _context = context;
-            _tokenService = tokenService;
         }
-
-        public async Task<ReturnCreateUser> CreateUser(CreateUserDto createUser, User userCurrent)
-        {
-            userCurrent = await CreateNewUser(createUser.Name);
-
-            var generateToken = _tokenService.GenerateJwtToken(userCurrent);
-            ReturnCreateUser returnCreateUser = new ReturnCreateUser()
-            {
-                Name = userCurrent.Name,
-                Token = generateToken,
-            };
-            return returnCreateUser;
-        }
-
-        private async Task<User> CreateNewUser(string userName)
-        {
-            User user = new User()
-            {
-                Id = Guid.NewGuid(),
-                Name = userName,
-                Created = DateTime.UtcNow,
-                Updated = DateTime.UtcNow
-            };
-            _context.Users.Add(user);
-            await _context.SaveChangesAsync();
-
-            return user;
-        }
-
+        
         public async Task<User?> GetUserById(string userId)
         {
             var user = await _context.Users.SingleOrDefaultAsync(x => x.Id == Guid.Parse(userId));
             return user;
+        }
+
+        public async Task<bool> CheckUserExistAsync(string username)
+        {
+            var isExist= await _context.Users.AnyAsync(x => x.Username == username);
+            return isExist;
+        }
+    
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<User> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+        }
+
+        public void AddUser(User user)
+        {
+            _context.Users.Add(user);
         }
     }
 }

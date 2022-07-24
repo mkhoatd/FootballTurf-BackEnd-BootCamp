@@ -1,35 +1,39 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿global using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
-using WebApi.Domain.Entities;
 using WebApi.Infrastructure.Extensions;
-using WebApi.Persistence;
 using WebApi.Hubs;
 using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
+using WebApi.Persistence;
+using WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog();
+var config = builder.Configuration;
+
 // Add services to the container.
-var configuration = new ConfigurationBuilder();
+var connectionString = config.GetConnectionString("KMShootDB");
+builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
+    options.UseNpgsql(connectionString));
 
-configuration
-    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile("appsetting.Production.json", optional: true);
-
-IConfigurationRoot config = configuration.Build();
-
-Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(config).CreateLogger();
+builder.Host.UseSerilog((context, configuration) => configuration
+    .ReadFrom.Configuration(config));
 
 builder.Services.AddSignalR();
 
-builder.Services.ConnectDBService(builder.Configuration);
-
 builder.Services.AddCorsService(config);
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddRepositoryService();
 
 builder.Services.AddApplicationServices();
 
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddBusinessServices();
+
+builder.Services.AddJwtService(config);
 
 builder.Services.AddAuthorization();
 
@@ -41,10 +45,31 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<AppSettings>(config.GetSection("AppSettings"));
 
 builder.Services
-    .AddControllersWithViews()
-    .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+    .AddControllers()
+    .AddJsonOptions(option =>
+    {
+        option.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        option.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context=services.GetRequiredService<AppFootballTurfDbContext>();
+        await context.Database.MigrateAsync();
+        await Seed.SeedData(context);
+    }
+    catch (Exception e)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(e, "An error occurred while migrating or seeding the database.");
+    }
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -63,6 +88,9 @@ app.UseMiddleware<ErrorHandlerMiddleware>();
 
 // custom jwt auth middleware
 app.UseMiddleware<JwtMiddleware>();
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
