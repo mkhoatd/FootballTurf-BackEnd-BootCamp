@@ -6,10 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EfCore.GenericBizRunner" Version="4.1.0" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <ProjectReference Include="..\WebApi.Domain\WebApi.Domain.csproj" />
     <ProjectReference Include="..\WebApi.Repository\WebApi.Repository.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Interfaces" />
   </ItemGroup>
 
 </Project>

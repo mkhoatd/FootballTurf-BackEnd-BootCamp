@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 using System.Text;
-using WebApi.BusinessLogic.Interfaces;
+using GenericBizRunner;
 using WebApi.BusinessLogic.Users.DTOs;
 using WebApi.BusinessLogic.Users.Interfaces;
 using WebApi.Domain.Entities;
@@ -8,15 +8,23 @@ using WebApi.Repository.Interface;
 
 namespace WebApi.BusinessLogic.Users;
 
-public class CheckValidUsernameAndPasswordActionAsync : BusinessActionErrors, ICheckValidUsernameAndPasswordActionAsync
+public class LoginActionAsync : 
+    BizActionStatus, 
+    ILoginActionAsync
 {
     private readonly IUserRepository _userRepository;
-    public CheckValidUsernameAndPasswordActionAsync(IUserRepository userRepository)
+    private readonly ITokenService _tokenService;
+
+    public LoginActionAsync(IUserRepository userRepository,
+        ITokenService tokenService)
     {
         _userRepository = userRepository;
+        _tokenService = tokenService;
     }
 
-    public async Task<bool> ActionAsync(LoginOrRegisterDto dto)
+
+    
+    public async Task<UserLoginDto> BizActionAsync(LoginOrRegisterDto dto)
     {
         if(dto.Username.Length<4 || dto.Username.Length>20)
         {
@@ -48,7 +56,12 @@ public class CheckValidUsernameAndPasswordActionAsync : BusinessActionErrors, IC
         {
             AddError("Wrong password", nameof(dto.Password));
         }
-        if (HasErrors) return false;
-        return true;
+        if (HasErrors) return null;
+        var userLoginDto = new UserLoginDto
+        {
+            Username = user.Username,
+            Token = _tokenService.GenerateJwtToken(user)
+        };
+        return userLoginDto;
     }
 }

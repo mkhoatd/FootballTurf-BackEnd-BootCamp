@@ -14,4 +14,8 @@
       <Folder Include="DTOs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="EfCore.GenericBizRunner" Version="4.1.0" />
+    </ItemGroup>
+
 </Project>
