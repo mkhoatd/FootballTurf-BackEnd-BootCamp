@@ -7,16 +7,15 @@ using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
 using WebApi.Repository.Interface;
 using WebApi.Repository.Service;
-using Microsoft.AspNetCore.Mvc;
 using WebApi.BusinessLogic.Users;
 using WebApi.BusinessLogic.Users.Interfaces;
+using WebApi.Interfaces;
 
 
 namespace WebApi.Controllers
 {
-    [Route("Api/[controller]/[action]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+
+    public class UsersController : BaseApiController
     {
         private readonly ILogger<UsersController> _logger;
 

@@ -24,6 +24,20 @@ namespace WebApi.Domain.Entities
             Username = username.ToLower();
             UpdatePassword(password);
         }
+
+        public static User CreateCustomer(string username, string password)
+        {
+            var user=new User(username, password);
+            user.Role = UserRole.Customer;
+            return user;
+        }
+
+        public static User CreateProductOwner(string username, string password)
+        {
+            var user=new User(username, password);
+            user.Role = UserRole.ProductOwner;
+            return user;
+        }
         public void UpdatePassword(string password)
         {
             using var hmac = new HMACSHA512();
