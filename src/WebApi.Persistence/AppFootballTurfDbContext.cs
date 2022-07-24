@@ -27,6 +27,7 @@ namespace WebApi.Persistence
             builder.ApplyConfiguration(new TurfConfig());
             builder.ApplyConfiguration(new ScheduleConfig());
             builder.ApplyConfiguration(new ImageConfig());
+            builder.ApplyConfiguration(new MainTurfConfig());
         }
 
     }

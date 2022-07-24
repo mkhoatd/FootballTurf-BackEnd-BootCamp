@@ -7,11 +7,9 @@ using WebApi.Domain.Enum;
 namespace WebApi.Domain.Entities;
 public class Turf : BaseEntity
 {
+    public Guid MainTurfId { get; set; }
+    public MainTurf MainTurf { get; set; }
     public string Name { get; set; }
-    public string Address { get; set; }
-    public TurfStatus Status { get; set; }
-    public Guid OwnerId { get; set; }
-    public User Owner { get; set; }
     public string Longitude { get; set; }
     public string Latitude { get; set; }
     public TurfType Type { get; set; }

@@ -30,18 +30,7 @@ public static class Seed
 
         if (!context.Turfs.Any())
         {
-            var owner1 = await context.Users.Where(u => u.Role == UserRole.ProductOwner)
-                .Include(u => u.Turfs)
-                .FirstOrDefaultAsync();
-            owner1.Turfs.Add(new Turf()
-            {
-                Name = "Turf 1",
-                Address = "Address 1",
-                Latitude = "43",
-                Longitude = "105",
-                Type = TurfType.San7
-            });
-            await context.SaveChangesAsync();
+
         }
     }
 }

@@ -9,9 +9,9 @@ public class TurfConfig : IEntityTypeConfiguration<Turf>
     public void Configure(EntityTypeBuilder<Turf> entity)
     {
         entity.HasKey(t => t.Id);
-        entity.HasOne(t => t.Owner)
-            .WithMany(u => u.Turfs)
-            .HasForeignKey(t => t.OwnerId);
+        entity.HasOne(t => t.MainTurf)
+            .WithMany(mt => mt.Turfs)
+            .HasForeignKey(t => t.MainTurfId);
         entity.HasMany(t => t.Schedules)
             .WithOne(s => s.Turf)
             .HasForeignKey(s => s.TurfId);

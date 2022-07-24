@@ -31,7 +31,7 @@ builder.Services.AddCorsService(config);
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddRepositoryService();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddApplicationServices();
 
