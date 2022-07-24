@@ -34,7 +34,7 @@ namespace WebApi.Repository.Service
                 {
                     new Claim("id", user.Id.ToString()),
                     new Claim("username", user.Username),
-                    new Claim("role", user.Role.ToString())
+                    new Claim(ClaimTypes.Role, user.Role.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

@@ -39,4 +39,8 @@
     <ProjectReference Include="..\WebApi.Repository\WebApi.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Helpers" />
+  </ItemGroup>
+
 </Project>

@@ -25,18 +25,6 @@ namespace WebApi.Controllers
         {
             _logger = logger;
         }
-
-        // [HttpPost()]
-        // public async Task<ActionResult> CreateUserAsync()
-        // {
-        //     var user = (User)HttpContext.Items["User"];
-        //
-        //     _logger.LogInformation(SuccessMessage.CreateUserSuccess);
-        //     return Ok(new ApiResponse(
-        //         StatusCodes.Status200OK,
-        //         SuccessMessage.CreateUserSuccess,
-        //         null));
-        // }
         [HttpPost()]
         public async Task<ActionResult<UserLoginDto>> RegisterAsync(LoginOrRegisterDto loginOrRegisterDto,
             [FromServices]IActionServiceAsync<IRegisterUserActionAsync> service)
