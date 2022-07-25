@@ -9,6 +9,8 @@ using WebApi.Repository.Implementation;
 using WebApi.Repository.Interface;
 using WebApi.Repository.Service;
 using NetCore.AutoRegisterDi;
+using WebApi.BusinessLogic.MainTurfs;
+using WebApi.BusinessLogic.MainTurfs.Interfaces;
 
 namespace WebApi.Extensions;
 
@@ -20,6 +22,7 @@ public static class BusinessServiceExtension
         services.RegisterBizRunnerWithDtoScans<AppFootballTurfDbContext>((Assembly)null);
         services.AddTransient<ILoginActionAsync, LoginActionAsync>();
         services.AddTransient<IRegisterUserActionAsync, RegisterUserActionAsync>();
+        services.AddTransient<IGetAllMainTurfActionAsync, GetAllMainTurfActionAsync>();
         return services;
     }
     
