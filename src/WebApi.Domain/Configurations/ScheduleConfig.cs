@@ -12,5 +12,8 @@ public class ScheduleConfig : IEntityTypeConfiguration<Schedule>
         entity.HasOne(s => s.Turf)
             .WithMany(t => t.Schedules)
             .HasForeignKey(s => s.TurfId);
+        entity.HasOne(s => s.Customer)
+            .WithMany(u => u.Schedules)
+            .HasForeignKey(s => s.CustomerId);
     }
 }

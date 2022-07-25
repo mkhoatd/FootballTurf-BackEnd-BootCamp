@@ -16,6 +16,7 @@ namespace WebApi.Domain.Entities
         public UserRole Role { get; set; }
         public string PhoneNumber { get; set; }
         public HashSet<MainTurf> MainTurfs { get; set; }
+        public HashSet<Schedule> Schedules { get; set; }
 
         public User() {}
 
@@ -38,11 +39,18 @@ namespace WebApi.Domain.Entities
             user.Role = UserRole.ProductOwner;
             return user;
         }
-        public void UpdatePassword(string password)
+        public User UpdatePassword(string password)
         {
             using var hmac = new HMACSHA512();
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             PasswordSalt = hmac.Key;
+            return this;
+        }
+
+        public User UpdatePhoneNumber(string phoneNumber)
+        {
+            this.PhoneNumber = phoneNumber;
+            return this;
         }
     }
 }

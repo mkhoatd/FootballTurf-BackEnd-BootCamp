@@ -34,10 +34,15 @@ namespace WebApi.Persistence.Migrations
                     b.Property<string>("Link")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("TurfId")
+                        .HasColumnType("uuid");
+
                     b.Property<DateTime>("Updated")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("TurfId");
 
                     b.ToTable("Images");
                 });
@@ -54,6 +59,12 @@ namespace WebApi.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Latitude")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -67,7 +78,7 @@ namespace WebApi.Persistence.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("MainTurf");
+                    b.ToTable("MainTurfs");
                 });
 
             modelBuilder.Entity("WebApi.Domain.Entities.Schedule", b =>
@@ -79,10 +90,13 @@ namespace WebApi.Persistence.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("EndTime")
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("End")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTime>("StartTime")
+                    b.Property<DateTime>("Start")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
@@ -95,6 +109,8 @@ namespace WebApi.Persistence.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("TurfId");
 
@@ -109,12 +125,6 @@ namespace WebApi.Persistence.Migrations
 
                     b.Property<DateTime>("Created")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Latitude")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Longitude")
-                        .HasColumnType("text");
 
                     b.Property<Guid>("MainTurfId")
                         .HasColumnType("uuid");
@@ -136,30 +146,6 @@ namespace WebApi.Persistence.Migrations
                     b.HasIndex("MainTurfId");
 
                     b.ToTable("Turfs");
-                });
-
-            modelBuilder.Entity("WebApi.Domain.Entities.TurfImage", b =>
-                {
-                    b.Property<Guid>("TurfId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("TurfId", "ImageId");
-
-                    b.HasIndex("ImageId");
-
-                    b.ToTable("TurfImages");
                 });
 
             modelBuilder.Entity("WebApi.Domain.Entities.User", b =>
@@ -197,6 +183,17 @@ namespace WebApi.Persistence.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WebApi.Domain.Entities.Image", b =>
+                {
+                    b.HasOne("WebApi.Domain.Entities.Turf", "Turf")
+                        .WithMany("Images")
+                        .HasForeignKey("TurfId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Turf");
+                });
+
             modelBuilder.Entity("WebApi.Domain.Entities.MainTurf", b =>
                 {
                     b.HasOne("WebApi.Domain.Entities.User", "Owner")
@@ -210,11 +207,19 @@ namespace WebApi.Persistence.Migrations
 
             modelBuilder.Entity("WebApi.Domain.Entities.Schedule", b =>
                 {
+                    b.HasOne("WebApi.Domain.Entities.User", "Customer")
+                        .WithMany("Schedules")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebApi.Domain.Entities.Turf", "Turf")
                         .WithMany("Schedules")
                         .HasForeignKey("TurfId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
 
                     b.Navigation("Turf");
                 });
@@ -230,30 +235,6 @@ namespace WebApi.Persistence.Migrations
                     b.Navigation("MainTurf");
                 });
 
-            modelBuilder.Entity("WebApi.Domain.Entities.TurfImage", b =>
-                {
-                    b.HasOne("WebApi.Domain.Entities.Image", "Image")
-                        .WithMany("TurfImages")
-                        .HasForeignKey("ImageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApi.Domain.Entities.Turf", "Turf")
-                        .WithMany("TurfImages")
-                        .HasForeignKey("TurfId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Image");
-
-                    b.Navigation("Turf");
-                });
-
-            modelBuilder.Entity("WebApi.Domain.Entities.Image", b =>
-                {
-                    b.Navigation("TurfImages");
-                });
-
             modelBuilder.Entity("WebApi.Domain.Entities.MainTurf", b =>
                 {
                     b.Navigation("Turfs");
@@ -261,14 +242,16 @@ namespace WebApi.Persistence.Migrations
 
             modelBuilder.Entity("WebApi.Domain.Entities.Turf", b =>
                 {
-                    b.Navigation("Schedules");
+                    b.Navigation("Images");
 
-                    b.Navigation("TurfImages");
+                    b.Navigation("Schedules");
                 });
 
             modelBuilder.Entity("WebApi.Domain.Entities.User", b =>
                 {
                     b.Navigation("MainTurfs");
+
+                    b.Navigation("Schedules");
                 });
 #pragma warning restore 612, 618
         }

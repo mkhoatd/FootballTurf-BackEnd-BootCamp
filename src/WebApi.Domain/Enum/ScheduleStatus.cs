@@ -2,6 +2,6 @@
 
 public enum ScheduleStatus
 {
-    Pending,
-    Booked
+    P,
+    B
 }

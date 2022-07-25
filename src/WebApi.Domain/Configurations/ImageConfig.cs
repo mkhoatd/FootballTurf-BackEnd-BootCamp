@@ -9,8 +9,8 @@ public class ImageConfig : IEntityTypeConfiguration<Image>
     public void Configure(EntityTypeBuilder<Image> entity)
     {
         entity.HasKey(i => i.Id);
-        entity.HasMany(i=>i.TurfImages)
-            .WithOne(tf=>tf.Image)
-            .HasForeignKey(tf=>tf.ImageId);
+        entity.HasOne(i => i.Turf)
+            .WithMany(t => t.Images)
+            .HasForeignKey(i => i.TurfId);
     }
 }
