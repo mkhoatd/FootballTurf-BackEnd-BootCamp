@@ -47,6 +47,12 @@ namespace WebApi.Domain.Entities
             return this;
         }
 
+        public User UpdateName(string name)
+        {
+            this.Name = name;
+            return this;
+        }
+
         public User UpdatePhoneNumber(string phoneNumber)
         {
             this.PhoneNumber = phoneNumber;
