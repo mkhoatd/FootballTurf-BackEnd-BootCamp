@@ -1,13 +1,13 @@
 ﻿using GenericBizRunner;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.BusinessLogic.Turfs.Interfaces;
+using WebApi.BusinessLogic.MainTurfs.Interfaces;
 using WebApi.Interfaces;
 using WebApi.Repository.DTOs;
 
 namespace WebApi.Controllers
 {
-    public class TurfsController : BaseApiController
+    public class MainTurfsController : BaseApiController
     {
         [HttpGet()]
         public async Task<ActionResult<List<MainTurfDto>>> GetMainTurfList(

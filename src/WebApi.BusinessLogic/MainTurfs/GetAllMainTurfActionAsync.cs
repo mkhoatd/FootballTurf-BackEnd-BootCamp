@@ -1,9 +1,9 @@
 ﻿using GenericBizRunner;
-using WebApi.BusinessLogic.Turfs.Interfaces;
+using WebApi.BusinessLogic.MainTurfs.Interfaces;
 using WebApi.Repository.DTOs;
 using WebApi.Repository.Interface;
 
-namespace WebApi.BusinessLogic.Turfs
+namespace WebApi.BusinessLogic.MainTurfs
 {
     public class GetAllMainTurfActionAsync :
         BizActionStatus,

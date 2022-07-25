@@ -9,8 +9,8 @@ using WebApi.Repository.Implementation;
 using WebApi.Repository.Interface;
 using WebApi.Repository.Service;
 using NetCore.AutoRegisterDi;
-using WebApi.BusinessLogic.Turfs;
-using WebApi.BusinessLogic.Turfs.Interfaces;
+using WebApi.BusinessLogic.MainTurfs;
+using WebApi.BusinessLogic.MainTurfs.Interfaces;
 
 namespace WebApi.Extensions;
 
