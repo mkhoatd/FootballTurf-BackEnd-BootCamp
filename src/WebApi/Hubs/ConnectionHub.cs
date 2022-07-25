@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using WebApi.Domain.Common;
+using WebApi.Domain.Entities;
+using WebApi.Domain.Enum;
 using WebApi.Repository.Interface;
 
 namespace WebApi.Hubs
@@ -14,21 +16,26 @@ namespace WebApi.Hubs
             _hubRepository = hubRepository;
         }
 
-        public async Task AddToGroupAsync(string groupName, string userName)
+        public async Task AddToGroupAsync(Guid turfId)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-            await Clients.OthersInGroup(groupName).SendAsync(CommonHub.EventAddGroup, Context.ConnectionId, userName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, turfId.ToString());
+            //await Clients.OthersInGroup(idTurf).SendAsync(CommonHub.EventAddGroup, Context.ConnectionId, userName);
         }
 
-        public async Task RemoveConnectionAsync(string groupName)
+        public async Task RemoveConnectionAsync(string turfId)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync(CommonHub.EventOutGroup, $"{Context.ConnectionId} has left the group {groupName}.");
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, turfId);
         }
 
         public override async Task OnDisconnectedAsync(Exception? exception)
         {
             await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task UpdateStatusTurfAsync(Guid turfId, ScheduleStatus status, DateTime timeStart, DateTime timeEnd)
+        {
+           var schedule =  _hubRepository.CreateAndUpdateScheduleTurf(turfId, status,timeStart,timeEnd);
+           await Clients.Group(turfId.ToString()).SendAsync(CommonHub.UpdateSchedule, schedule);
         }
     }
 }

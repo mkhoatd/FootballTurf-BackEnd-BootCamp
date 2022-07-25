@@ -13,6 +13,8 @@ using WebApi.BusinessLogic.MainTurfs;
 using WebApi.BusinessLogic.MainTurfs.Interfaces;
 using WebApi.BusinessLogic.Turfs;
 using WebApi.BusinessLogic.Turfs.Interfaces;
+using WebApi.BusinessLogic.Schedules.Interfaces;
+using WebApi.BusinessLogic.Schedules;
 
 namespace WebApi.Extensions;
 
@@ -27,6 +29,8 @@ public static class BusinessServiceExtension
         services.AddTransient<IGetAllMainTurfActionAsync, GetAllMainTurfActionAsync>();
         services.AddTransient<IGetMainTurfByIdActionAsync, GetMainTurfByIdActionAsync>();
         services.AddTransient<IGetTurfsInMainTurfActionAsync, GetTurfsInMainTurfActionAsync>();
+        services.AddTransient<IGetScheduleInAMonthAsync, GetScheduleInAMonthAsync>();
+
         return services;
     }
     
