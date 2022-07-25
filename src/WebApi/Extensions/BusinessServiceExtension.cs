@@ -11,6 +11,8 @@ using WebApi.Repository.Service;
 using NetCore.AutoRegisterDi;
 using WebApi.BusinessLogic.MainTurfs;
 using WebApi.BusinessLogic.MainTurfs.Interfaces;
+using WebApi.BusinessLogic.Turfs;
+using WebApi.BusinessLogic.Turfs.Interfaces;
 
 namespace WebApi.Extensions;
 
@@ -24,6 +26,7 @@ public static class BusinessServiceExtension
         services.AddTransient<IRegisterUserActionAsync, RegisterUserActionAsync>();
         services.AddTransient<IGetAllMainTurfActionAsync, GetAllMainTurfActionAsync>();
         services.AddTransient<IGetMainTurfByIdActionAsync, GetMainTurfByIdActionAsync>();
+        services.AddTransient<IGetTurfsInMainTurfActionAsync, GetTurfsInMainTurfActionAsync>();
         return services;
     }
     
