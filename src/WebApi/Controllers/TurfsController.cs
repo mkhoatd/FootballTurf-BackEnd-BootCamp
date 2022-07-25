@@ -11,7 +11,7 @@ namespace WebApi.Controllers
     public class TurfsController : BaseApiController
     {
         [HttpGet()]
-        public async Task<ActionResult<string>> GetMainTurfList(
+        public async Task<ActionResult<MainTurfDto>> GetMainTurfList(
             [FromServices]IActionServiceAsync<IGetAllMainTurfActionAsync> service)
         {
             var mainTurfs = await service.RunBizActionAsync<List<MainTurfDto>>();
