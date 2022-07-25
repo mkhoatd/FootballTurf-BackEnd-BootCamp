@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebApi.Persistence;
@@ -12,9 +13,10 @@ using WebApi.Persistence;
 namespace WebApi.Persistence.Migrations
 {
     [DbContext(typeof(AppFootballTurfDbContext))]
-    partial class AppFootballTurfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220725121127_RemoveImagesTable")]
+    partial class RemoveImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

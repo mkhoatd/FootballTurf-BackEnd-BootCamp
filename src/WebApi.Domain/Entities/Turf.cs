@@ -14,6 +14,6 @@ public class Turf : BaseEntity
     public TurfType Type { get; set; }
     public int Rating { get; set; }
     public List<Schedule> Schedules { get; set; }
-    public List<Image> Images { get; set; }
+    public List<string> ImageLinks { get; set; }
 
 }

@@ -15,8 +15,5 @@ public class TurfConfig : IEntityTypeConfiguration<Turf>
         entity.HasMany(t => t.Schedules)
             .WithOne(s => s.Turf)
             .HasForeignKey(s => s.TurfId);
-        entity.HasMany(t=>t.Images)
-            .WithOne(i=>i.Turf)
-            .HasForeignKey(i=>i.TurfId);
     }
 }
