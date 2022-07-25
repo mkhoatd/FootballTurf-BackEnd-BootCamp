@@ -9,7 +9,7 @@ using WebApi.Domain.Entities;
 
 namespace WebApi.BusinessLogic.Schedules.Interfaces
 {
-    public interface IGetScheduleInAMonthAsync: IGenericActionAsync<GetScheduleDto,List<Schedule>>
+    public interface IGetScheduleInAMonthAsync: IGenericActionAsync<Guid,List<Schedule>>
     {
     }
 }

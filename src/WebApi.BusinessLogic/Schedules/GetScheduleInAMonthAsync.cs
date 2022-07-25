@@ -23,11 +23,11 @@ namespace WebApi.BusinessLogic.Schedules
 
 
 
-        public async Task<List<Schedule>> BizActionAsync(GetScheduleDto dto)
+        public async Task<List<Schedule>> BizActionAsync(Guid turfId)
         {
-            var listSchedule = await _scheduleRepository.GetScheduleByIdTurfInAMonth(dto.TurfId);
+            var listSchedule = await _scheduleRepository.GetScheduleByIdTurfInAMonth(turfId);
             if (listSchedule == null)
-                AddError(ExceptionMessage.GetScheduleInAMonthFail, nameof(dto.TurfId));
+                AddError(ExceptionMessage.GetScheduleInAMonthFail, nameof(turfId));
 
             return listSchedule;
         }

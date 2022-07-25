@@ -22,11 +22,11 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost()]
-        public async Task<ActionResult<List<Schedule>>> GetScheduleInAMonthAsync(GetScheduleDto getScheduleDto,
+        [HttpGet()]
+        public async Task<ActionResult<List<Schedule>>> GetScheduleInAMonthAsync(Guid turfId,
            [FromServices] IActionServiceAsync<IGetScheduleInAMonthAsync> service)
         {
-            var scheduleDto = await service.RunBizActionAsync<List<Schedule>>(getScheduleDto);
+            var scheduleDto = await service.RunBizActionAsync<List<Schedule>>(turfId);
             if (service.Status.HasErrors)
             {
                 foreach (var error in service.Status.Errors)
