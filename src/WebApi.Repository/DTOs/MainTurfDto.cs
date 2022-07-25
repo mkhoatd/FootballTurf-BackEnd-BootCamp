@@ -2,7 +2,7 @@
 {
     public class MainTurfDto
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
         public List<string> ImageLink { get; set; }
