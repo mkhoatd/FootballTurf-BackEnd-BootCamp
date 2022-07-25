@@ -13,16 +13,16 @@ public static class Seed
         {
             var customers = new List<User>
             {
-                User.CreateCustomer("customer1", "password").UpdatePhoneNumber("1111111111"),
-                User.CreateCustomer("customer2", "password").UpdatePhoneNumber("1111111112"),
-                User.CreateCustomer("customer3", "password").UpdatePhoneNumber("1111111113")
+                User.CreateCustomer("customer1", "password").UpdatePhoneNumber("1111111111").UpdateName("Customer 1"),
+                User.CreateCustomer("customer2", "password").UpdatePhoneNumber("1111111112").UpdateName("Customer 2"),
+                User.CreateCustomer("customer3", "password").UpdatePhoneNumber("1111111113").UpdateName("Customer 3")
             };
             context.Users.AddRange(customers);
             var productOwners = new List<User>
             {
-                User.CreateProductOwner("owner1", "password").UpdatePhoneNumber("1111111114"),
-                User.CreateProductOwner("owner2", "password").UpdatePhoneNumber("1111111115"),
-                User.CreateProductOwner("owner3", "password").UpdatePhoneNumber("1111111116")
+                User.CreateProductOwner("owner1", "password").UpdatePhoneNumber("1111111114").UpdateName("Owner 1"),
+                User.CreateProductOwner("owner2", "password").UpdatePhoneNumber("1111111115").UpdateName("Owner 2"),
+                User.CreateProductOwner("owner3", "password").UpdatePhoneNumber("1111111116").UpdateName("Owner 3")
             };
             context.AddRange(productOwners);
             await context.SaveChangesAsync();
@@ -35,7 +35,7 @@ public static class Seed
                 .Where(u => u.Role == UserRole.ProductOwner)
                 .OrderBy(u=>u.Username)
                 .FirstOrDefaultAsync();
-            var mainTurf1=(new MainTurf
+            var mainTurf1=new MainTurf
             {
                 Name = "Sân lớn 1",
                 Address = "Đường 1",
@@ -43,11 +43,25 @@ public static class Seed
                 Latitude="10.8167",
                 Turfs = new List<Turf>(),
                 ImageLinks= new List<string>(),
-            });
+            };
+            var mainTurf2 = new MainTurf
+            {
+                Name = "Sân lớn 2",
+                Address = "Đường 2",
+                Longitude = "169.96",
+                Latitude = "45",
+                Turfs = new List<Turf>(),
+                ImageLinks = new List<string>()
+            };
             mainTurf1.ImageLinks.AddRange(new []
             {
                 "https://picsum.photos/id/1003/200/300",
                 "https://picsum.photos/id/1004/200/300"
+            });
+            mainTurf2.ImageLinks.AddRange(new []
+            {
+                "https://picsum.photos/id/1019/200/300",
+                "https://picsum.photos/id/102/200/300"
             });
             var turf1 = new Turf
             {
@@ -61,6 +75,12 @@ public static class Seed
                 Type = TurfType.SevenASide,
                 ImageLinks = new List<string>()
             };
+            var turf3 = new Turf
+            {
+                Name = "Sân nhỏ 3",
+                Type = TurfType.SevenASide,
+                ImageLinks = new List<string>()
+            };
             turf1.ImageLinks.AddRange(new []
             {
                 "https://picsum.photos/id/237/200/300", 
@@ -71,8 +91,14 @@ public static class Seed
                 "https://picsum.photos/id/1/200/300", 
                 "https://picsum.photos/id/2/200/300"
             });
+            turf3.ImageLinks.AddRange(new []
+            {
+                "https://picsum.photos/id/1024/200/300", 
+                "https://picsum.photos/id/1025/200/300"
+            });
             mainTurf1.Turfs.AddRange(new [] {turf1, turf2});
-            owner1.MainTurfs.Add(mainTurf1);
+            mainTurf2.Turfs.Add(turf3);
+            owner1.MainTurfs.AddRange(new [] {mainTurf1, mainTurf2});
             await context.SaveChangesAsync();
         }
 
