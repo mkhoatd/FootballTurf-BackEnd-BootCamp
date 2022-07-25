@@ -41,39 +41,37 @@ public static class Seed
                 Address = "Đường 1",
                 Longitude="106.6333",
                 Latitude="10.8167",
-                Turfs = new List<Turf>()
+                Turfs = new List<Turf>(),
+                ImageLinks= new List<string>(),
+            });
+            mainTurf1.ImageLinks.AddRange(new []
+            {
+                "https://picsum.photos/id/1003/200/300",
+                "https://picsum.photos/id/1004/200/300"
             });
             var turf1 = new Turf
             {
                 Name = "Sân nhỏ 1",
                 Type = TurfType.FiveASide,
-                Images = new List<Image>()
+                ImageLinks = new List<string>()
             };
             var turf2 = new Turf
             {
                 Name = "Sân nhỏ 2",
                 Type = TurfType.SevenASide,
-                Images = new List<Image>()
+                ImageLinks = new List<string>()
             };
-            var im1 = new Image
+            turf1.ImageLinks.AddRange(new []
             {
-                Link = "https://picsum.photos/id/237/200/300"
-            };
-            var im2 = new Image
+                "https://picsum.photos/id/237/200/300", 
+                "https://picsum.photos/id/0/200/300"
+            });
+            turf2.ImageLinks.AddRange(new []
             {
-                Link = "https://picsum.photos/id/0/200/300"
-            };
-            var im3 = new Image
-            {
-                Link = "https://picsum.photos/id/1/200/300"
-            };
-            var im4 = new Image
-            {
-                Link = "https://picsum.photos/id/2/200/300"
-            };
-            turf1.Images.AddRange(new Image[] {im1, im2});
-            turf2.Images.AddRange(new Image[] {im3, im4});
-            mainTurf1.Turfs.AddRange(new Turf[] {turf1, turf2});
+                "https://picsum.photos/id/1/200/300", 
+                "https://picsum.photos/id/2/200/300"
+            });
+            mainTurf1.Turfs.AddRange(new [] {turf1, turf2});
             owner1.MainTurfs.Add(mainTurf1);
             await context.SaveChangesAsync();
         }

@@ -9,5 +9,6 @@ public class MainTurf : BaseEntity
     public string Longitude { get; set; }
     public string Latitude { get; set; }
     public List<Turf> Turfs { get; set; }
-    
+    public List<string> ImageLinks { get; set; }
+
 }

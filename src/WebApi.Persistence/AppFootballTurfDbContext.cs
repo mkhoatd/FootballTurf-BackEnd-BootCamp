@@ -13,7 +13,6 @@ namespace WebApi.Persistence
         public DbSet<User> Users { get; set; }
         public DbSet<Turf> Turfs { get; set; }
         public DbSet<Schedule> Schedules { get; set; }
-        public DbSet<Image> Images { get; set; }
         public DbSet<MainTurf> MainTurfs { get; set; }
 
         public AppFootballTurfDbContext(DbContextOptions<AppFootballTurfDbContext> options) : base(options)
@@ -25,7 +24,6 @@ namespace WebApi.Persistence
             builder.ApplyConfiguration(new UserConfig());
             builder.ApplyConfiguration(new TurfConfig());
             builder.ApplyConfiguration(new ScheduleConfig());
-            builder.ApplyConfiguration(new ImageConfig());
             builder.ApplyConfiguration(new MainTurfConfig());
         }
 
