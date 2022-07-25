@@ -11,7 +11,7 @@ namespace WebApi.Extensions
         {
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ITokenService, TokenService>();
-            
+            services.AddScoped<IMainTurfsRepository, MainTurfsRepository>();
             return services;
         }
     }
