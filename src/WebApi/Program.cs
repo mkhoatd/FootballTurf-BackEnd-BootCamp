@@ -18,7 +18,7 @@ builder.Host.UseSerilog();
 var config = builder.Configuration;
 
 // Add services to the container.
-var connectionString = config.GetConnectionString("KMShootDB");
+var connectionString = config.GetConnectionString("FootballTurfDB");
 builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
     options.UseNpgsql(connectionString));
 

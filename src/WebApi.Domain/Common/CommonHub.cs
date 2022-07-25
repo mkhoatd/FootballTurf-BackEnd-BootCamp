@@ -6,6 +6,6 @@
 
         public const string EventOutGroup = "OutGroup";
 
-        public const string EventOutRoom = "OutRoom";
+        public const string UpdateSchedule = "UpdateSchedule";
     }
 }

@@ -25,6 +25,8 @@ namespace WebApi.Controllers
         {
             _logger = logger;
         }
+
+        [AllowAnonymous]
         [HttpPost()]
         public async Task<ActionResult<UserLoginDto>> RegisterAsync(LoginOrRegisterDto loginOrRegisterDto,
             [FromServices]IActionServiceAsync<IRegisterUserActionAsync> service)
@@ -44,6 +46,7 @@ namespace WebApi.Controllers
             return Ok(userLoginDto);
         }
 
+        [AllowAnonymous]
         [HttpPost()]
         public async Task<ActionResult<UserLoginDto>> LoginAsync(LoginOrRegisterDto dto,
             [FromServices]IActionServiceAsync<ILoginActionAsync> service)
