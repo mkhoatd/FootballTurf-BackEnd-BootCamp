@@ -7,16 +7,15 @@ using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
 using WebApi.Repository.Interface;
 using WebApi.Repository.Service;
-using Microsoft.AspNetCore.Mvc;
 using WebApi.BusinessLogic.Users;
 using WebApi.BusinessLogic.Users.Interfaces;
+using WebApi.Interfaces;
 
 
 namespace WebApi.Controllers
 {
-    [Route("Api/[controller]/[action]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+
+    public class UsersController : BaseApiController
     {
         private readonly ILogger<UsersController> _logger;
 
@@ -26,18 +25,6 @@ namespace WebApi.Controllers
         {
             _logger = logger;
         }
-
-        // [HttpPost()]
-        // public async Task<ActionResult> CreateUserAsync()
-        // {
-        //     var user = (User)HttpContext.Items["User"];
-        //
-        //     _logger.LogInformation(SuccessMessage.CreateUserSuccess);
-        //     return Ok(new ApiResponse(
-        //         StatusCodes.Status200OK,
-        //         SuccessMessage.CreateUserSuccess,
-        //         null));
-        // }
         [HttpPost()]
         public async Task<ActionResult<UserLoginDto>> RegisterAsync(LoginOrRegisterDto loginOrRegisterDto,
             [FromServices]IActionServiceAsync<IRegisterUserActionAsync> service)

@@ -48,6 +48,7 @@ public class LoginActionAsync :
         if(!isExist)
         {
             AddError("User doesn't exist",nameof(dto.Username));
+            return null;
         }
         var user = await _userRepository.GetUserByUsernameAsync(dto.Username);
         using var hmac=new HMACSHA512(user.PasswordSalt);

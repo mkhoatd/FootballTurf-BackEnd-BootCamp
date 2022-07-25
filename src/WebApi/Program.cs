@@ -1,6 +1,10 @@
 ﻿global using System.Text.Json;
+using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Serilog;
+using WebApi.Domain.Entities;
+using WebApi.Domain.Enum;
 using WebApi.Infrastructure.Extensions;
 using WebApi.Hubs;
 using WebApi.Repository.Helpers;
@@ -27,7 +31,7 @@ builder.Services.AddCorsService(config);
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddRepositoryService();
+builder.Services.AddApplicationServices();
 
 builder.Services.AddApplicationServices();
 
@@ -40,7 +44,31 @@ builder.Services.AddAuthorization();
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition(name: "Bearer", securityScheme: new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer"
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type=ReferenceType.SecurityScheme,
+                    Id="Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+});
 
 builder.Services.Configure<AppSettings>(config.GetSection("AppSettings"));
 

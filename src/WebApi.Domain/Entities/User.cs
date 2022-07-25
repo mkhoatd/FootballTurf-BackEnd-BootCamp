@@ -15,7 +15,8 @@ namespace WebApi.Domain.Entities
         public byte[] PasswordSalt { get; set; }
         public UserRole Role { get; set; }
         public string PhoneNumber { get; set; }
-        public HashSet<Turf> Turfs { get; set; }
+        public List<MainTurf> MainTurfs { get; set; }
+        public List<Schedule> Schedules { get; set; }
 
         public User() {}
 
@@ -24,11 +25,32 @@ namespace WebApi.Domain.Entities
             Username = username.ToLower();
             UpdatePassword(password);
         }
-        public void UpdatePassword(string password)
+
+        public static User CreateCustomer(string username, string password)
+        {
+            var user=new User(username, password);
+            user.Role = UserRole.Customer;
+            return user;
+        }
+
+        public static User CreateProductOwner(string username, string password)
+        {
+            var user=new User(username, password);
+            user.Role = UserRole.ProductOwner;
+            return user;
+        }
+        public User UpdatePassword(string password)
         {
             using var hmac = new HMACSHA512();
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             PasswordSalt = hmac.Key;
+            return this;
+        }
+
+        public User UpdatePhoneNumber(string phoneNumber)
+        {
+            this.PhoneNumber = phoneNumber;
+            return this;
         }
     }
 }

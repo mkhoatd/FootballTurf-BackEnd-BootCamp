@@ -2,26 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Domain.Enum;
 
 namespace WebApi.Domain.Entities;
 public class Schedule : BaseEntity
 {
-    public int ScheduleIndex { get; set; }
-    public DateTime StartTime
-    {
-        get
-        {
-            var startTime = DateTime.Today.AddDays(1); //ngay hom sau, voi gio phut giay =0
-            return startTime.AddMinutes((ScheduleIndex) * 30);
-        }
-    }
-    public DateTime EndTime
-    {
-        get
-        {
-            return StartTime.AddMinutes(30);
-        }
-    }
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public ScheduleStatus Status { get; set; }
     public Guid TurfId { get; set; }
     public Turf Turf { get; set; }
+    public Guid CustomerId { get; set; }
+    
+    public User Customer { get; set; }
 }

@@ -44,8 +44,8 @@ public class RegisterUserActionAsync :
         {
             AddError("Password must not contain spaces", nameof(dto.Password));
         }
-        
-        var user = new User(dto.Username, dto.Password);
+
+        var user = User.CreateCustomer(dto.Username, dto.Password);
         var isExist = await _userRepository.CheckUserExistAsync(user.Username);
         if(isExist)
         {
