@@ -13,7 +13,7 @@ public class Turf : BaseEntity
 
     public TurfType Type { get; set; }
     public int Rating { get; set; }
-    public HashSet<Schedule> Schedules { get; set; }
-    public HashSet<Image> Images { get; set; }
+    public List<Schedule> Schedules { get; set; }
+    public List<Image> Images { get; set; }
 
 }

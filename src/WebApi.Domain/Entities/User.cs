@@ -15,8 +15,8 @@ namespace WebApi.Domain.Entities
         public byte[] PasswordSalt { get; set; }
         public UserRole Role { get; set; }
         public string PhoneNumber { get; set; }
-        public HashSet<MainTurf> MainTurfs { get; set; }
-        public HashSet<Schedule> Schedules { get; set; }
+        public List<MainTurf> MainTurfs { get; set; }
+        public List<Schedule> Schedules { get; set; }
 
         public User() {}
 

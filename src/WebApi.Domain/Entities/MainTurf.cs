@@ -8,6 +8,6 @@ public class MainTurf : BaseEntity
     public User Owner { get; set; }
     public string Longitude { get; set; }
     public string Latitude { get; set; }
-    public HashSet<Turf> Turfs { get; set; }
+    public List<Turf> Turfs { get; set; }
     
 }
