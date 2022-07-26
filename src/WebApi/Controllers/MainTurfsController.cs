@@ -1,4 +1,5 @@
 ﻿using GenericBizRunner;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BusinessLogic.MainTurfs.Interfaces;
@@ -9,6 +10,7 @@ namespace WebApi.Controllers
 {
     public class MainTurfsController : BaseApiController
     {
+        [AllowAnonymous]
         [HttpGet()]
         public async Task<ActionResult<List<MainTurfDto>>> GetMainTurfList(
             [FromServices]IActionServiceAsync<IGetAllMainTurfActionAsync> service)
@@ -25,10 +27,13 @@ namespace WebApi.Controllers
             }
             return Ok(mainTurfs);
         }
+
+
         [HttpGet()]
         public async Task<ActionResult<MainTurfDto>> GetMainTurfById(string id,
             [FromServices]IActionServiceAsync<IGetMainTurfByIdActionAsync>service)
         {
+
             var mainTurf = await service.RunBizActionAsync<MainTurfDto>(id);
             if (service.Status.HasErrors)
             {
