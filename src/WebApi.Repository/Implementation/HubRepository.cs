@@ -22,31 +22,16 @@ namespace WebApi.Repository.Implementation
             _scheduleRepository = scheduleRepository;
         }
 
-        public async Task<Schedule> CreateAndUpdateScheduleTurf(Guid turfId, ScheduleStatus status, DateTime startTime, DateTime endTime)
+        public async Task<Schedule?> UpdateScheduleTurf(Guid scheduleId, ScheduleStatus status)
         {
-            var customer = await _context.Users.FirstOrDefaultAsync(x => x.Role == UserRole.Customer);
-            var schedule = await _scheduleRepository.GetScheduleByIdFromStartTimeAndEndTime(turfId, startTime, endTime);
-
-            if(schedule == null)
-            {
-               Schedule newSchedule = new Schedule()
-               {
-                   Start = startTime,
-                   End = endTime,
-                   Status = status,
-                   TurfId = turfId,
-                   CustomerId = customer.Id,
-               };
-               _context.Schedules.Add(newSchedule);
-               
-            }
-            else
+            var schedule = await _context.Schedules.SingleOrDefaultAsync(x => x.Id == scheduleId);
+            if (schedule != null)
             {
                 schedule.Status = status;
+                await _context.SaveChangesAsync();
+                return schedule;
             }
-
-            await _context.SaveChangesAsync();
-            return schedule;
+            return null;
         }
     }
 }
