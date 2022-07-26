@@ -30,6 +30,7 @@ public static class BusinessServiceExtension
         services.AddTransient<IGetMainTurfByIdActionAsync, GetMainTurfByIdActionAsync>();
         services.AddTransient<IGetTurfsInMainTurfActionAsync, GetTurfsInMainTurfActionAsync>();
         services.AddTransient<IGetScheduleInAMonthAsync, GetScheduleInAMonthAsync>();
+        services.AddTransient<ISearchMainTurf, SearchMainTurfActionAsync>();
 
         return services;
     }

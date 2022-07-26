@@ -53,5 +53,24 @@ namespace WebApi.Controllers
             }
             return Ok(mainTurf);
         }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<List<TurfDto>>> SearchMainTurf(SearchTurfDto searchMainTurfDto,
+        [FromServices] IActionServiceAsync<ISearchMainTurf> service)
+        {
+            var turfs = await service.RunBizActionAsync<List<MainTurfDto>>(searchMainTurfDto);
+            if (service.Status.HasErrors)
+            {
+                foreach (var error in service.Status.Errors)
+                {
+                    var properties = error.ErrorResult.MemberNames.ToList();
+                    ModelState.AddModelError(properties.Any() ? properties.First() : "", error.ErrorResult.ErrorMessage);
+                }
+                return BadRequest(ModelState);
+            }
+
+            return Ok(turfs);
+        }
     }
 }
