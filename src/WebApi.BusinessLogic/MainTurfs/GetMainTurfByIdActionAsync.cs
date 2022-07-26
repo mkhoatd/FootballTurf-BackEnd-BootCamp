@@ -16,8 +16,8 @@ public class GetMainTurfByIdActionAsync :
         _repository = repository;
     }
 
-    public async Task<List<MainTurfDto>> BizActionAsync(Guid id)
+    public async Task<MainTurfDto> BizActionAsync(string id)
     {
-        return await _repository.GetMainTurfByIdUserAsync(id);
+        return await _repository.GetMainTurfByIdAsync(id);
     }
 }

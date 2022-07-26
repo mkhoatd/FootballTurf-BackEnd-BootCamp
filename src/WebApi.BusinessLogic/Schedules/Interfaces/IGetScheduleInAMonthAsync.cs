@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebApi.Repository.DTOs;
 using WebApi.Domain.Entities;
 
 namespace WebApi.BusinessLogic.Schedules.Interfaces

@@ -24,22 +24,10 @@ namespace WebApi.Repository.Implementation
             return listSchedule;
         }
 
-        
         public async Task<List<Schedule>> GetScheduleByIdTurfInAMonth(Guid turfId)
         {
             var addOneMonth = DateTime.Today.AddMonths(1).ToUniversalTime();
-            var listSchedule = await _context.Schedules.Include(s => s.Customer)
-                .Select(s => new Schedule()
-                {
-                    Start = s.Start,
-                    End = s.End,
-                    CustomerId = s.CustomerId,
-                    TurfId = s.TurfId,
-                    Status = s.Status,
-                    Customer = s.Customer
-                })
-                .Where(x => x.TurfId == turfId && x.Start >= DateTime.Today.ToUniversalTime() && x.End <= addOneMonth).ToListAsync();
-
+            var listSchedule = await _context.Schedules.Where(x => x.TurfId == turfId && x.Start >= DateTime.Today.ToUniversalTime() && x.End <= addOneMonth).ToListAsync();
             return listSchedule;
         }
 

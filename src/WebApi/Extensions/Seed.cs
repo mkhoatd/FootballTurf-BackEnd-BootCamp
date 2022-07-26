@@ -31,114 +31,86 @@ public static class Seed
         if (!context.MainTurfs.Any())
         {
             var owner1 = await context.Users
-                .Include(u=>u.MainTurfs)
+                .Include(u => u.MainTurfs)
                 .Where(u => u.Role == UserRole.ProductOwner)
-                .OrderBy(u=>u.Username)
+                .OrderBy(u => u.Username)
                 .FirstOrDefaultAsync();
-            var mainTurf1=new MainTurf
+            var mainTurf1 = new MainTurf
             {
-                Name = "Sân Bóng Đá Mini Cỏ Nhân Tạo Hồng Bảy",
-                Address = "399/45 Bình Thành, Bình Hưng Hoà B, Bình Tân, Thành phố Hồ Chí Minh",
-                Longitude= "106.58636497606",
-                Latitude= "10.81326010",
+                Name = "Sân Mỹ Đình",
+                Address = "1 Lê Đức Thọ, Mỹ Đình, Nam Từ Liêm, Hà Nội",
+                Latitude = "21.1",
+                Longitude = "105.45",
                 Turfs = new List<Turf>(),
-                ImageLinks= new List<string>()
-                {
-                 "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan3-1.jpg?alt=media&token=095bca4e-ec72-4f94-a0fd-85e9421906f0",
-                 "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan6.jpg?alt=media&token=dd280e4b-9ef3-4caf-9315-cdfa1f27950f"
-                },
+                ImageLinks = new List<string>(),
             };
             var mainTurf2 = new MainTurf
             {
-                Name = "Sân Bóng Đá Cỏ Nhân Tạo Vườn Keo",
-                Address = "99 Tân Thới Hiệp 22, Tân Thới Hiệp, Quận 12, Thành phố Hồ Chí Minh",
-                Longitude = "106.640805581",
-                Latitude = "10.8656916",
+                Name = "Sân Hàng Đẫy",
+                Address = "9 Trịnh Hoài Đức, Cát Linh, Đống Đa, Hà Nội, Việt Nam",
+                Latitude = "21.1",
+                Longitude = "105.49",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan7.png?alt=media&token=61b8d4d6-ff21-40ea-9f3a-5fbb5671e904",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan7-2.jpg?alt=media&token=5af4d737-e27e-4375-af44-c50aef2c9c64"
-                }
             };
             var mainTurf3 = new MainTurf
             {
-                Name = "Sân Chảo Lửa",
-                Address = "30 Phan Thúc Duyện, Phường 4, Tân Bình, Thành phố Hồ Chí Minh",
-                Longitude = "106.6606704",
-                Latitude = "10.8048043",
+                Name = "Sân Đồng Nai",
+                Address = "Đường Phạm Văn Khoai, Tân Hiệp, Biên Hòa, Đồng Nai, Việt Nam",
+                Latitude = "10.961917",
+                Longitude = "106.862806",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fchaolua1.jpg?alt=media&token=7399364f-56b8-461f-832b-867e5b42ee75",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fchaolua2.jpg?alt=media&token=1f80fd03-a100-47cf-b106-b1ce1f5d0a83"
-                }
             };
             var mainTurf4 = new MainTurf
             {
-                Name = "Sân Cỏ Nhân Tạo Trường CĐ Công Nghệ Thủ Đức",
-                Address = "53 Võ Văn Ngân, P. Linh Chiểu, Q. Thủ Đức, Thành phố Hồ Chí Minh",
-                Longitude = "106.75715",
-                Latitude = "10.8513",
+                Name = "Sân Cao Lãnh",
+                Address = "Đường Lê Duẩn, Phường Mỹ Phú, Cao Lãnh, Đồng Tháp, Việt Nam",
+                Latitude = "10.28",
+                Longitude = "105.37",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan2-1.jpg?alt=media&token=2f487f86-65da-428c-a46a-936895757a81",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan2.jpg?alt=media&token=268b8d09-1e97-4537-b452-f8e4c40df7e9"
-                }
             };
-
             var mainTurf5 = new MainTurf
             {
-                Name = "Sân Bóng Đá Cỏ Nhân Tạo Hợp Thành",
-                Address = "213 Bình Quới, Phường 28, Bình Thạnh, Thành phố Hồ Chí Minh",
-                Longitude = "106.65725",
-                Latitude = "10.5533",
+                Name = "Sân Thanh Hóa",
+                Address = "37 Lê Quý Đôn, Phường Ba Đình, Thành phố Thanh Hóa, Thanh Hóa, Việt Nam",
+                Latitude = "19.47",
+                Longitude = "105.46",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan3.jpg?alt=media&token=1c9b9d19-5fa5-4708-a337-a6966af9a657",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan3-1.jpg?alt=media&token=095bca4e-ec72-4f94-a0fd-85e9421906f0"
-                }
             };
-
             var mainTurf6 = new MainTurf
             {
-                Name = "Sân bóng đá mini cỏ nhân tạo Thành Phát",
-                Address = "1017 Bình Quới, Phường 28, Bình Thạnh, Thành phố Hồ Chí Minh",
-                Longitude = "106.2131",
-                Latitude = "10.1122",
+                Name = "Sân Pleiku",
+                Address = "Quang Trung, P.Tây Sơn, Thành phố Pleiku, Gia Lai",
+                Latitude = "13.979162",
+                Longitude = "108.004901",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan4-1.jpg?alt=media&token=ebcae86a-dea2-4969-878f-0877451a5ebf",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan4.jpg?alt=media&token=08f21ce5-67cc-4c86-8ea0-792ab58a3be9",
-                }
             };
-
             var mainTurf7 = new MainTurf
             {
-                Name = "Sân Cỏ Nhân Tạo Công Viên Thể Thao Q.2",
-                Address = "QQP7+27J, Phường Bình Trưng Tây, Quận 2, Thành phố Hồ Chí Minh",
-                Longitude = "106.4412",
-                Latitude = "10.6221",
+                Name = "Sân Long An",
+                Address = "44B Trương Định, Phường 2, Tân An, Long An, Việt Nam",
+                Latitude = "10.53616",
+                Longitude = "106.408199",
                 Turfs = new List<Turf>(),
                 ImageLinks = new List<string>()
-                {
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5.jpg?alt=media&token=f5e028d8-4631-41ea-a837-b82eb3f0524a",
-                    "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5-1.jpg?alt=media&token=b4ddf8e5-3ad8-4dbb-95ac-2374cffb6747",
-                }
             };
-            //mainTurf1.ImageLinks.AddRange(new []
-            //{
-            //    "https://picsum.photos/id/1003/200/300",
-            //    "https://picsum.photos/id/1004/200/300"
-            //});
-            //mainTurf2.ImageLinks.AddRange(new []
-            //{
-            //    "https://picsum.photos/id/1019/200/300",
-            //    "https://picsum.photos/id/102/200/300"
-            //});
+            mainTurf1.ImageLinks.AddRange(new[]
+            {
+                "https://images.unsplash.com/photo-1509077613385-f89402467146?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80"
+            });
+            mainTurf2.ImageLinks.AddRange(new[]
+            {
+                "https://images.unsplash.com/photo-1521221680442-c2850b60ee46?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80"
+            });
+            mainTurf3.ImageLinks.Add("https://upload.wikimedia.org/wikipedia/commons/1/13/Hang_Day.jpg");
+            mainTurf4.ImageLinks.Add("https://images.unsplash.com/photo-1493538706211-316874a1e8b4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1424&q=80");
+            mainTurf5.ImageLinks.Add("https://images.unsplash.com/photo-1519743375942-b497d66b1e8f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1548&q=80");
+            mainTurf6.ImageLinks.Add("https://images.unsplash.com/photo-1591695440087-aed745e5955e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1767&q=80");
+            mainTurf7.ImageLinks.Add("https://images.unsplash.com/photo-1511204579483-e5c2b1d69acd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1558&q=80");
             var turf1 = new Turf
             {
                 Name = "Sân nhỏ 1",
@@ -157,27 +129,26 @@ public static class Seed
                 Type = TurfType.SevenASide,
                 ImageLinks = new List<string>()
             };
-            turf1.ImageLinks.AddRange(new []
+            turf1.ImageLinks.AddRange(new[]
             {
-                "https://picsum.photos/id/237/200/300", 
+                "https://picsum.photos/id/237/200/300",
                 "https://picsum.photos/id/0/200/300"
             });
-            turf2.ImageLinks.AddRange(new []
+            turf2.ImageLinks.AddRange(new[]
             {
-                "https://picsum.photos/id/1/200/300", 
+                "https://picsum.photos/id/1/200/300",
                 "https://picsum.photos/id/2/200/300"
             });
-            turf3.ImageLinks.AddRange(new []
+            turf3.ImageLinks.AddRange(new[]
             {
-                "https://picsum.photos/id/1024/200/300", 
+                "https://picsum.photos/id/1024/200/300",
                 "https://picsum.photos/id/1025/200/300"
             });
-            mainTurf1.Turfs.AddRange(new [] {turf1, turf2});
+            mainTurf1.Turfs.AddRange(new[] { turf1, turf2 });
             mainTurf2.Turfs.Add(turf3);
-            owner1.MainTurfs.AddRange(new [] {mainTurf1, mainTurf2, mainTurf3, mainTurf4, mainTurf5, mainTurf6, mainTurf7});
+            owner1.MainTurfs.AddRange(new[] { mainTurf1, mainTurf2 });
             await context.SaveChangesAsync();
         }
-
         if (!context.Schedules.Any())
         {
             var turf = await context.Turfs.OrderBy(t => t.Name).FirstOrDefaultAsync();
@@ -203,7 +174,7 @@ public static class Seed
                 },
                 new Schedule
                 {
-                    Start=DateTime.Today.AddHours(20).ToUniversalTime(),
+                    Start = DateTime.Today.AddHours(20).ToUniversalTime(),
                     End = DateTime.Today.AddHours(22).ToUniversalTime(),
                     Status = ScheduleStatus.Booked,
                     Turf = turf,
@@ -214,3 +185,5 @@ public static class Seed
         }
     }
 }
+
+

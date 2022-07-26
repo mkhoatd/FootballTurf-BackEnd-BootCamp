@@ -1,6 +1,7 @@
 ﻿using GenericBizRunner;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebApi.Repository.DTOs;
 using WebApi.BusinessLogic.Schedules.Interfaces;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;

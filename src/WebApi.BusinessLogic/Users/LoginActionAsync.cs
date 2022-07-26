@@ -61,7 +61,6 @@ public class LoginActionAsync :
         var userLoginDto = new UserLoginDto
         {
             Username = user.Username,
-            Role = user.Role,
             Token = _tokenService.GenerateJwtToken(user)
         };
         return userLoginDto;
