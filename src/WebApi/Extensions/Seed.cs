@@ -2,6 +2,7 @@
 using WebApi.Persistence;
 using WebApi.Domain.Entities;
 using WebApi.Domain.Enum;
+using WebApi.Helpers;
 
 namespace WebApi.Extensions;
 
@@ -13,16 +14,22 @@ public static class Seed
         {
             var customers = new List<User>
             {
-                User.CreateCustomer("customer1", "password").UpdatePhoneNumber("1111111111").UpdateName("Customer 1"),
-                User.CreateCustomer("customer2", "password").UpdatePhoneNumber("1111111112").UpdateName("Customer 2"),
-                User.CreateCustomer("customer3", "password").UpdatePhoneNumber("1111111113").UpdateName("Customer 3")
+                UserHelper.CreateRandomCustomer(1),
+                UserHelper.CreateRandomCustomer(2),
+                UserHelper.CreateRandomCustomer(3),
+                UserHelper.CreateRandomCustomer(4),
+                UserHelper.CreateRandomCustomer(5),
+                UserHelper.CreateRandomCustomer(6),
             };
             context.Users.AddRange(customers);
             var productOwners = new List<User>
             {
-                User.CreateProductOwner("owner1", "password").UpdatePhoneNumber("1111111114").UpdateName("Owner 1"),
-                User.CreateProductOwner("owner2", "password").UpdatePhoneNumber("1111111115").UpdateName("Owner 2"),
-                User.CreateProductOwner("owner3", "password").UpdatePhoneNumber("1111111116").UpdateName("Owner 3")
+                UserHelper.CreateRandomProductOwner(1),
+                UserHelper.CreateRandomProductOwner(2),
+                UserHelper.CreateRandomProductOwner(3),
+                UserHelper.CreateRandomProductOwner(4),
+                UserHelper.CreateRandomProductOwner(5),
+                UserHelper.CreateRandomProductOwner(6),
             };
             context.AddRange(productOwners);
             await context.SaveChangesAsync();
@@ -115,7 +122,6 @@ public static class Seed
                     "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan4.jpg?alt=media&token=08f21ce5-67cc-4c86-8ea0-792ab58a3be9",
                 }
             };
-
             var mainTurf7 = new MainTurf
             {
                 Name = "Sân Cỏ Nhân Tạo Công Viên Thể Thao Q.2",
@@ -129,87 +135,110 @@ public static class Seed
                     "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5-1.jpg?alt=media&token=b4ddf8e5-3ad8-4dbb-95ac-2374cffb6747",
                 }
             };
-            //mainTurf1.ImageLinks.AddRange(new []
-            //{
-            //    "https://picsum.photos/id/1003/200/300",
-            //    "https://picsum.photos/id/1004/200/300"
-            //});
-            //mainTurf2.ImageLinks.AddRange(new []
-            //{
-            //    "https://picsum.photos/id/1019/200/300",
-            //    "https://picsum.photos/id/102/200/300"
-            //});
-            var turf1 = new Turf
+            var turfs = new List<Turf>();
+            int i;
+            for (i = 0; i < 20; i++)
             {
-                Name = "Sân nhỏ 1",
-                Type = TurfType.FiveASide,
-                ImageLinks = new List<string>()
-            };
-            var turf2 = new Turf
-            {
-                Name = "Sân nhỏ 2",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf3 = new Turf
-            {
-                Name = "Sân nhỏ 3",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            turf1.ImageLinks.AddRange(new []
-            {
-                "https://picsum.photos/id/237/200/300", 
-                "https://picsum.photos/id/0/200/300"
-            });
-            turf2.ImageLinks.AddRange(new []
-            {
-                "https://picsum.photos/id/1/200/300", 
-                "https://picsum.photos/id/2/200/300"
-            });
-            turf3.ImageLinks.AddRange(new []
-            {
-                "https://picsum.photos/id/1024/200/300", 
-                "https://picsum.photos/id/1025/200/300"
-            });
-            mainTurf1.Turfs.AddRange(new [] {turf1, turf2});
-            mainTurf2.Turfs.Add(turf3);
+                var name="Sân nhỏ "+(i+1).ToString();
+                var R = new Random(Guid.NewGuid().GetHashCode());
+                var turf = new Turf
+                {
+                    Name = name,
+                    Type = (TurfType)R.Next(0, 2),
+                    ImageLinks = new List<string>()
+                };
+                turf.ImageLinks.Add("https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5.jpg?alt=media&token=f5e028d8-4631-41ea-a837-b82eb3f0524a");
+                turfs.Add(turf);
+            }
+            mainTurf1.Turfs.AddRange(new [] {turfs[0], turfs[1]});
+            mainTurf2.Turfs.Add(turfs[2]);
+            mainTurf3.Turfs.AddRange(new []{turfs[3], turfs[4],turfs[5]});
+            mainTurf4.Turfs.AddRange(new []{turfs[6], turfs[12],turfs[13],turfs[14]});
+            mainTurf5.Turfs.AddRange(new []{turfs[7],turfs[15],turfs[16]});
+            mainTurf6.Turfs.AddRange(new []{turfs[8], turfs[9]});
+            mainTurf7.Turfs.AddRange(new []{turfs[10],turfs[17],turfs[18],turfs[19]});
             owner1.MainTurfs.AddRange(new [] {mainTurf1, mainTurf2, mainTurf3, mainTurf4, mainTurf5, mainTurf6, mainTurf7});
             await context.SaveChangesAsync();
         }
 
         if (!context.Schedules.Any())
         {
-            var turf = await context.Turfs.OrderBy(t => t.Name).FirstOrDefaultAsync();
-            var customer = await context.Users.Where(u => u.Role == UserRole.Customer)
-                .OrderBy(u => u.Username).FirstOrDefaultAsync();
-            context.Schedules.AddRange(new Schedule[]
+            var turfs = await context.Turfs.OrderBy(t => t.Name).ToListAsync();
+            var customers = await context.Users.Where(u => u.Role == UserRole.Customer)
+                .OrderBy(u => u.Username).ToListAsync();
+            var a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            var sche1 = new Schedule
             {
-                new Schedule
-                {
-                    Start = DateTime.Today.ToUniversalTime(),
-                    End = DateTime.Today.AddMinutes(120).ToUniversalTime(),
-                    Status = ScheduleStatus.Pending,
-                    Turf = turf,
-                    Customer = customer
-                },
-                new Schedule
-                {
-                    Start = DateTime.Today.AddHours(9).ToUniversalTime(),
-                    End=DateTime.Today.AddHours(12).ToUniversalTime(),
-                    Status = ScheduleStatus.Pending,
-                    Turf= turf,
-                    Customer = customer
-                },
-                new Schedule
-                {
-                    Start=DateTime.Today.AddHours(20).ToUniversalTime(),
-                    End = DateTime.Today.AddHours(22).ToUniversalTime(),
-                    Status = ScheduleStatus.Booked,
-                    Turf = turf,
-                    Customer = customer
-                }
-            });
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[0],
+                Customer = customers[0],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            var sche2=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Pending,
+                Turf = turfs[2],
+                Customer = customers[0],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(26);
+            var sche3=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[1],
+                Customer = customers[1],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            var sche4=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[3],
+                Customer = customers[2],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            var sche5=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Pending,
+                Turf = turfs[2],
+                Customer = customers[2],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(28);
+            var sche6=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[2],
+                Customer = customers[1],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            var sche7=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Pending,
+                Turf = turfs[5],
+                Customer = customers[5],
+            };
+            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            var sche8=new Schedule
+            {
+                Start = a.Item1,
+                End = a.Item2,
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[3],
+                Customer = customers[2],
+            };
+            context.Schedules.AddRange(new []{sche1,sche2,sche3,sche4,sche5,sche6,sche7,sche8});
             await context.SaveChangesAsync();
         }
     }
