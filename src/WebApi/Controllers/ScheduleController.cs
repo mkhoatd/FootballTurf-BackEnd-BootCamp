@@ -15,7 +15,7 @@ namespace WebApi.Controllers
 
         public ScheduleController(
             ILogger<ScheduleController> logger)
-        
+
         {
             _logger = logger;
         }

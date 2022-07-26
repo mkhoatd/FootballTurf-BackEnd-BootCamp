@@ -11,7 +11,7 @@ using WebApi.Repository.Interface;
 
 namespace WebApi.BusinessLogic.Schedules
 {
-    public class GetScheduleInAMonthAsync: BizActionStatus, IGetScheduleInAMonthAsync
+    public class GetScheduleInAMonthAsync : BizActionStatus, IGetScheduleInAMonthAsync
     {
         private readonly IScheduleRepository _scheduleRepository;
 
