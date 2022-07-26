@@ -73,6 +73,14 @@ namespace WebApi.Repository.Implementation
                 convertString = searchTurfDto.Name.NonUnicodeAndToLowerAndRemoveSpace();
                 searchWithTypeTurf = searchWithTypeTurf.Where(x => x.Name.NonUnicodeAndToLowerAndRemoveSpace().Contains(convertString)).ToList();
             }
+            if (!(string.IsNullOrEmpty(searchTurfDto.Latitude)&&string.IsNullOrEmpty(searchTurfDto.Longitude)))
+            {
+                searchWithTypeTurf.Sort((mt1, mt2) =>
+                    CoordinateHelper.Distance(mt1.Latitude,
+                        mt1.Longitude,
+                        searchTurfDto.Latitude,
+                        searchTurfDto.Longitude));
+            }
             return searchWithTypeTurf;
         }
     }
