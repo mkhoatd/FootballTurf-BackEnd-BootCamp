@@ -247,6 +247,7 @@ public static class Seed
                 Turf = turfs[0],
                 Customer = customers[2],
             };
+            a = a.AddHours(20);
             var sche10=new Schedule
             {
                 Start = a,
