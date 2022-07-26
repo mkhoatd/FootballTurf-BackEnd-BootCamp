@@ -166,79 +166,97 @@ public static class Seed
             var turfs = await context.Turfs.OrderBy(t => t.Name).ToListAsync();
             var customers = await context.Users.Where(u => u.Role == UserRole.Customer)
                 .OrderBy(u => u.Username).ToListAsync();
-            var a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            var a = DatetimeHelper.CreateDay(26);
             var sche1 = new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(2),
+                End = a.AddHours(3),
                 Status = ScheduleStatus.Booked,
                 Turf = turfs[0],
                 Customer = customers[0],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            a = a.AddHours(3);
             var sche2=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(1),
+                End = a.AddHours(2),
                 Status = ScheduleStatus.Pending,
-                Turf = turfs[2],
+                Turf = turfs[0],
                 Customer = customers[0],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(26);
+            a = a.AddHours(2);
             var sche3=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a,
+                End = a.AddMinutes(30),
                 Status = ScheduleStatus.Booked,
-                Turf = turfs[1],
+                Turf = turfs[0],
                 Customer = customers[1],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            a = a.AddDays(1);
             var sche4=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(4),
+                End = a.AddHours(6),
                 Status = ScheduleStatus.Booked,
-                Turf = turfs[3],
+                Turf = turfs[0],
                 Customer = customers[2],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            a = a.AddHours(6);
             var sche5=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a,
+                End = a.AddMinutes(30),
                 Status = ScheduleStatus.Pending,
-                Turf = turfs[2],
+                Turf = turfs[0],
                 Customer = customers[2],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(28);
+            a = a.AddDays(1);
             var sche6=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(12),
+                End = a.AddHours(14).AddMinutes(30),
                 Status = ScheduleStatus.Booked,
-                Turf = turfs[2],
+                Turf = turfs[0],
                 Customer = customers[1],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(27);
+            a = a.AddHours(15);
             var sche7=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(1),
+                End = a.AddHours(2),
                 Status = ScheduleStatus.Pending,
-                Turf = turfs[5],
+                Turf = turfs[0],
                 Customer = customers[5],
             };
-            a = DatetimeHelper.CreateRandomStartAndEndTime(29);
+            a = a.AddDays(1);
             var sche8=new Schedule
             {
-                Start = a.Item1,
-                End = a.Item2,
+                Start = a.AddHours(13),
+                End = a.AddHours(15),
                 Status = ScheduleStatus.Booked,
-                Turf = turfs[3],
+                Turf = turfs[0],
                 Customer = customers[2],
             };
-            context.Schedules.AddRange(new []{sche1,sche2,sche3,sche4,sche5,sche6,sche7,sche8});
+            a = a.AddDays(1);
+            var sche9=new Schedule
+            {
+                Start = a.AddHours(13),
+                End = a.AddHours(15),
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[0],
+                Customer = customers[2],
+            };
+            var sche10=new Schedule
+            {
+                Start = a,
+                End = a.AddMinutes(30),
+                Status = ScheduleStatus.Booked,
+                Turf = turfs[0],
+                Customer = customers[1],
+            };
+            context.Schedules.AddRange(new []{sche1,sche2,sche3,sche4,sche5,
+                sche6,sche7,sche8,sche9,sche10});
             await context.SaveChangesAsync();
         }
     }
