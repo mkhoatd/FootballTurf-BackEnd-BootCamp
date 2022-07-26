@@ -166,7 +166,7 @@ public static class Seed
             var turfs = await context.Turfs.OrderBy(t => t.Name).ToListAsync();
             var customers = await context.Users.Where(u => u.Role == UserRole.Customer)
                 .OrderBy(u => u.Username).ToListAsync();
-            var a = DatetimeHelper.CreateDay(26);
+            var a = DatetimeHelper.CreateDay(26); //26 0:0
             var sche1 = new Schedule
             {
                 Start = a.AddHours(2),

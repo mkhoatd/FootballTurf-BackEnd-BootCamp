@@ -5,6 +5,7 @@ using WebApi.BusinessLogic.Schedules.Interfaces;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
 using WebApi.Interfaces;
+using WebApi.Repository.DTOs;
 using WebApi.Repository.Interface;
 
 namespace WebApi.Controllers
@@ -22,10 +23,10 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet()]
-        public async Task<ActionResult<List<Schedule>>> GetScheduleInAMonthAsync(Guid turfId,
+        public async Task<ActionResult<List<ScheduleDto>>> GetScheduleInAMonthAsync(Guid turfId,
            [FromServices] IActionServiceAsync<IGetScheduleInAMonthAsync> service)
         {
-            var scheduleDto = await service.RunBizActionAsync<List<Schedule>>(turfId);
+            var scheduleDto = await service.RunBizActionAsync<List<ScheduleDto>>(turfId);
             if (service.Status.HasErrors)
             {
                 foreach (var error in service.Status.Errors)
@@ -36,7 +37,6 @@ namespace WebApi.Controllers
                 return BadRequest(ModelState);
 
             }
-
             _logger.LogInformation(SuccessMessage.GetScheduleInAMonthSuccess);
             return Ok(scheduleDto);
         }

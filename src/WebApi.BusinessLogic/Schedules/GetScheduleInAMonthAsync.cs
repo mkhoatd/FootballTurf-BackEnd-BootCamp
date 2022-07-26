@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using WebApi.BusinessLogic.Schedules.Interfaces;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
+using WebApi.Repository.DTOs;
 using WebApi.Repository.Interface;
 
 namespace WebApi.BusinessLogic.Schedules
@@ -22,13 +23,13 @@ namespace WebApi.BusinessLogic.Schedules
 
 
 
-        public async Task<List<Schedule>> BizActionAsync(Guid turfId)
+        public async Task<List<ScheduleDto>> BizActionAsync(Guid turfId)
         {
             var listSchedule = await _scheduleRepository.GetScheduleByIdTurfInAMonth(turfId);
             if (listSchedule == null)
                 AddError(ExceptionMessage.GetScheduleInAMonthFail, nameof(turfId));
-
-            return listSchedule;
+            var listScheduleDto = listSchedule.Select(s => new ScheduleDto(s)).ToList();
+            return listScheduleDto;
         }
     }
 }
