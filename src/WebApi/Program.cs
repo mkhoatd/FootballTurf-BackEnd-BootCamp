@@ -33,8 +33,6 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddApplicationServices();
 
-builder.Services.AddApplicationServices();
-
 builder.Services.AddBusinessServices();
 
 builder.Services.AddJwtService(config);

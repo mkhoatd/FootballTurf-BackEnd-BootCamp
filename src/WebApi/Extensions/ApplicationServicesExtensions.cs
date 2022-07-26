@@ -14,6 +14,7 @@ namespace WebApi.Extensions
             services.AddScoped<IMainTurfsRepository, MainTurfsRepository>();
             services.AddScoped<ITurfsRepository, TurfsRepository>();
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
+            services.AddScoped<IHubRepository, HubRepository>();
 
             return services;
         }
