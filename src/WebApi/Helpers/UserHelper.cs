@@ -19,7 +19,7 @@ public static class UserHelper
     public static User CreateRandomProductOwner(int i)
     {
         var user = new User();
-        user.Username="customer" + i.ToString();
+        user.Username="owner" + i.ToString();
         user.UpdatePassword("password");
         user.Name = RandomString(10);
         user.PhoneNumber = CreateRandomPhoneNumber();
