@@ -1,7 +1,7 @@
 ﻿using GenericBizRunner;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApi.BusinessLogic.Schedules.DTOs;
+using WebApi.Repository.DTOs;
 using WebApi.BusinessLogic.Schedules.Interfaces;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
@@ -16,7 +16,7 @@ namespace WebApi.Controllers
 
         public ScheduleController(
             ILogger<ScheduleController> logger)
-        
+
         {
             _logger = logger;
         }
