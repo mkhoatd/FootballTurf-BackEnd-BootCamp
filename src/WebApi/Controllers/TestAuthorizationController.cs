@@ -5,7 +5,6 @@ using WebApi.Interfaces;
 
 namespace WebApi.Controllers;
 
-[Authorize]
 public class TestAuthorizationController : BaseApiController
 {
     [HttpGet()]
