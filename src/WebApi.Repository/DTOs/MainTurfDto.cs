@@ -1,4 +1,6 @@
-﻿namespace WebApi.Repository.DTOs
+﻿using WebApi.Domain.Entities;
+
+namespace WebApi.Repository.DTOs
 {
     public class MainTurfDto
     {
@@ -11,5 +13,6 @@
         public string OwnerPhoneNumber { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+        public List<Turf> Turfs { get; set; }
     }
 }
