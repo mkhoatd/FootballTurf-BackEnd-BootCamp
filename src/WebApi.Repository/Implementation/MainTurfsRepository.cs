@@ -19,7 +19,7 @@ namespace WebApi.Repository.Implementation
             _context = context;
         }
 
-        public async Task<MainTurfDto> GetMainTurfByIdAsync(string id)
+        public async Task<List<MainTurfDto>> GetMainTurfByIdUserAsync(Guid idUser)
         {
             return await _context.MainTurfs.Select(mt => new MainTurfDto
             {
@@ -32,7 +32,7 @@ namespace WebApi.Repository.Implementation
                 OwnerPhoneNumber = mt.Owner.PhoneNumber,
                 Longitude = mt.Longitude,
                 Latitude = mt.Latitude
-            }).FirstOrDefaultAsync(mt=>mt.Id==id);
+            }).Where(x=>x.OwnerId == idUser).ToListAsync();
         }
 
         public async Task<List<MainTurfDto>> GetAllMainTurfsAsync()

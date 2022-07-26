@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.BusinessLogic.MainTurfs.Interfaces;
+using WebApi.Domain.Entities;
 using WebApi.Interfaces;
 using WebApi.Repository.DTOs;
 
@@ -30,11 +31,17 @@ namespace WebApi.Controllers
 
 
         [HttpGet()]
-        public async Task<ActionResult<MainTurfDto>> GetMainTurfById(string id,
+        public async Task<ActionResult<MainTurfDto>> GetMainTurfById(
             [FromServices]IActionServiceAsync<IGetMainTurfByIdActionAsync>service)
         {
+            var currentUser = (User)HttpContext.Items["User"];
+            if (currentUser == null)
+            {
+                ModelState.AddModelError("", "User doesn't exist");
+                return BadRequest(ModelState);
+            }
 
-            var mainTurf = await service.RunBizActionAsync<MainTurfDto>(id);
+            var mainTurf = await service.RunBizActionAsync<List<MainTurfDto>>(currentUser.Id);
             if (service.Status.HasErrors)
             {
                 foreach (var error in service.Status.Errors)
