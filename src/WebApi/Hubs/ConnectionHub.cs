@@ -32,10 +32,17 @@ namespace WebApi.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateStatusTurfAsync(Guid turfId, ScheduleStatus status, DateTime timeStart, DateTime timeEnd)
+        public async Task UpdateStatusTurfAsync(Guid scheduleId, ScheduleStatus status)
         {
-           var schedule =  _hubRepository.CreateAndUpdateScheduleTurf(turfId, status,timeStart,timeEnd);
-           await Clients.Group(turfId.ToString()).SendAsync(CommonHub.UpdateSchedule, schedule);
+           var schedule =  _hubRepository.UpdateScheduleTurf(scheduleId, status);
+           if (schedule == null)
+           {
+                return;
+           }
+           else
+           {
+                await Clients.Group(schedule.Result.TurfId.ToString()).SendAsync(CommonHub.UpdateSchedule, schedule);
+           }
         }
     }
 }
