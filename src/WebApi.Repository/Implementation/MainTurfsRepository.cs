@@ -78,8 +78,8 @@ namespace WebApi.Repository.Implementation
                 searchWithTypeTurf.Sort((mt1, mt2) =>
                     CoordinateHelper.Distance(mt1.Latitude,
                         mt1.Longitude,
-                        searchTurfDto.Latitude,
-                        searchTurfDto.Longitude));
+                        mt2.Latitude,
+                        mt2.Longitude));
             }
             return searchWithTypeTurf;
         }
