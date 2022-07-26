@@ -135,79 +135,28 @@ public static class Seed
                     "https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5-1.jpg?alt=media&token=b4ddf8e5-3ad8-4dbb-95ac-2374cffb6747",
                 }
             };
-            var turf1 = new Turf
+            var turfs = new List<Turf>();
+            int i;
+            for (i = 0; i < 20; i++)
             {
-                Name = "Sân nhỏ 1",
-                Type = TurfType.FiveASide,
-                ImageLinks = new List<string>()
-            };
-            var turf2 = new Turf
-            {
-                Name = "Sân nhỏ 2",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf3 = new Turf
-            {
-                Name = "Sân nhỏ 3",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf4 = new Turf
-            {
-                Name = "Sân nhỏ 4",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf5 = new Turf
-            {
-                Name = "Sân nhỏ 5",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf6 = new Turf
-            {
-                Name = "Sân nhỏ 6",
-                Type = TurfType.FiveASide,
-                ImageLinks = new List<string>(),
-            };
-            var turf7 = new Turf
-            {
-                Name = "Sân nhỏ 7",
-                Type = TurfType.FiveASide,
-                ImageLinks = new List<string>()
-            };
-            var turf8 = new Turf
-            {
-                Name = "Sân nhỏ 8",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf9 = new Turf
-            {
-                Name = "Sân nhỏ 9",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            var turf10 = new Turf
-            {
-                Name = "Sân nhỏ 10",
-                Type = TurfType.FiveASide,
-                ImageLinks = new List<string>()
-            };
-            var turf11 = new Turf
-            {
-                Name = "Sân nhỏ 11",
-                Type = TurfType.SevenASide,
-                ImageLinks = new List<string>()
-            };
-            mainTurf1.Turfs.AddRange(new [] {turf1, turf2});
-            mainTurf2.Turfs.Add(turf3);
-            mainTurf3.Turfs.AddRange(new []{turf7, turf8,turf9});
-            mainTurf4.Turfs.AddRange(new []{turf10});
-            mainTurf5.Turfs.AddRange(new []{turf11});
-            mainTurf6.Turfs.AddRange(new []{turf4, turf5});
-            mainTurf7.Turfs.AddRange(new []{turf4});
+                var name="Sân nhỏ "+(i+1).ToString();
+                var R = new Random(Guid.NewGuid().GetHashCode());
+                var turf = new Turf
+                {
+                    Name = name,
+                    Type = (TurfType)R.Next(0, 2),
+                    ImageLinks = new List<string>()
+                };
+                turf.ImageLinks.Add("https://firebasestorage.googleapis.com/v0/b/freshfood-6bb13.appspot.com/o/Test%2Fsan5.jpg?alt=media&token=f5e028d8-4631-41ea-a837-b82eb3f0524a");
+                turfs.Add(turf);
+            }
+            mainTurf1.Turfs.AddRange(new [] {turfs[0], turfs[1]});
+            mainTurf2.Turfs.Add(turfs[2]);
+            mainTurf3.Turfs.AddRange(new []{turfs[3], turfs[4],turfs[5]});
+            mainTurf4.Turfs.AddRange(new []{turfs[6], turfs[12],turfs[13],turfs[14]});
+            mainTurf5.Turfs.AddRange(new []{turfs[7],turfs[15],turfs[16]});
+            mainTurf6.Turfs.AddRange(new []{turfs[8], turfs[9]});
+            mainTurf7.Turfs.AddRange(new []{turfs[10],turfs[17],turfs[18],turfs[19]});
             owner1.MainTurfs.AddRange(new [] {mainTurf1, mainTurf2, mainTurf3, mainTurf4, mainTurf5, mainTurf6, mainTurf7});
             await context.SaveChangesAsync();
         }
