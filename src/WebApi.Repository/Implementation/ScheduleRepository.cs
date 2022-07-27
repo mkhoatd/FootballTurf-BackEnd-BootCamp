@@ -31,6 +31,7 @@ namespace WebApi.Repository.Implementation
             var listSchedule = await _context.Schedules.Include(s => s.Customer)
                 .Select(s => new Schedule()
                 {
+                    Id = s.Id,
                     Start = s.Start,
                     End = s.End,
                     CustomerId = s.CustomerId,

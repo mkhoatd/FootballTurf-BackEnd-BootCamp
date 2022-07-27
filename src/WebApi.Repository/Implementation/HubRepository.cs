@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebApi.BusinessLogic.Schedules.DTOs;
 using WebApi.Domain.Entities;
 using WebApi.Domain.Enum;
 using WebApi.Persistence;
@@ -18,16 +14,17 @@ namespace WebApi.Repository.Implementation
 
         public HubRepository(AppFootballTurfDbContext context, IScheduleRepository scheduleRepository)
         {
-            _context = context;   
+            _context = context;
             _scheduleRepository = scheduleRepository;
         }
 
-        public async Task<Schedule?> UpdateScheduleTurf(Guid scheduleId, ScheduleStatus status)
+        public async Task<Schedule?> UpdateScheduleTurf(UpdateScheduleDto updateScheduleDto)
         {
-            var schedule = await _context.Schedules.SingleOrDefaultAsync(x => x.Id == scheduleId);
+            var schedule = await _context.Schedules.SingleOrDefaultAsync(x => x.Id == updateScheduleDto.ScheduleId);
             if (schedule != null)
             {
-                schedule.Status = status;
+                var tmp = (ScheduleStatus)Enum.Parse(typeof(ScheduleStatus), updateScheduleDto.Status, true);
+                schedule.Status = tmp;
                 await _context.SaveChangesAsync();
                 return schedule;
             }

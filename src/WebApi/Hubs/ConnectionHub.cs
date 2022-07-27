@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using WebApi.BusinessLogic.Schedules.DTOs;
 using WebApi.Domain.Common;
 using WebApi.Domain.Entities;
 using WebApi.Domain.Enum;
+using WebApi.Repository.DTOs;
 using WebApi.Repository.Interface;
 
 namespace WebApi.Hubs
@@ -32,16 +35,16 @@ namespace WebApi.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateStatusTurfAsync(Guid scheduleId, ScheduleStatus status)
+        public async Task UpdateStatusTurfAsync(UpdateScheduleDto updateScheduleDto )
         {
-           var schedule =  _hubRepository.UpdateScheduleTurf(scheduleId, status);
+           var schedule =  await _hubRepository.UpdateScheduleTurf(updateScheduleDto);
            if (schedule == null)
            {
                 return;
            }
            else
            {
-                await Clients.Group(schedule.Result.TurfId.ToString()).SendAsync(CommonHub.UpdateSchedule, schedule);
+                await Clients.Group(schedule.TurfId.ToString()).SendAsync(CommonHub.UpdateSchedule, new ScheduleDto(schedule));
            }
         }
     }
