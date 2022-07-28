@@ -11,6 +11,7 @@ using WebApi.Repository.Helpers;
 using WebApi.Infrastructure.Midlleware;
 using WebApi.Persistence;
 using WebApi.Extensions;
+using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,14 @@ var config = builder.Configuration;
 
 // Add services to the container.
 var connectionString = config.GetConnectionString("FootballTurfDB");
+
+if (Environment.GetEnvironmentVariable("DATABASE_URL") is not null)
+{
+    var m = Regex.Match(Environment.GetEnvironmentVariable("DATABASE_URL")!, @"postgres://(.*):(.*)@(.*):(.*)/(.*)");
+    connectionString = ($"Server={m.Groups[3]};Port={m.Groups[4]};User Id={m.Groups[1]};Password={m.Groups[2]};Database={m.Groups[5]};sslmode=Prefer;Trust Server Certificate=true");
+    System.Console.WriteLine(connectionString);
+}
+
 builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
     options.UseNpgsql(connectionString));
 
@@ -85,7 +94,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var context=services.GetRequiredService<AppFootballTurfDbContext>();
+        var context = services.GetRequiredService<AppFootballTurfDbContext>();
         await context.Database.MigrateAsync();
         await Seed.SeedData(context);
     }
@@ -97,11 +106,8 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseSerilogRequestLogging();
@@ -118,9 +124,10 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapHub<ConnectionHub>("/chatHub");
-});
+app.UseEndpoints(endpoints => endpoints.MapHub<ConnectionHub>("/chatHub"));
+
+//run app at https://localhost:7045
+
+
 
 app.Run();

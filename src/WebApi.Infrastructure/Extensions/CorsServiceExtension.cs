@@ -15,7 +15,6 @@ namespace WebApi.Infrastructure.Extensions
                 {
                     policy
                     .AllowAnyHeader()
-                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowCredentials()
                     .WithOrigins(allowedOrigins);
