@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Test", "test\WebApi.Test\WebApi.Test.csproj", "{2C10E74F-B5AD-4C6A-9B47-056E349ECD59}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Infrastructure", "src\WebApi.Infrastructure\WebApi.Infrastructure.csproj", "{FCFC999E-96D0-4F1E-931C-5977AC5B466E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Repository", "src\WebApi.Repository\WebApi.Repository.csproj", "{5193F880-3889-484F-8CF3-271D4C2E8FB0}"
@@ -15,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Domain", "src\WebApi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "src\WebApi\WebApi.csproj", "{774BE3D8-1F3B-4871-9610-915B16B5AE7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi.Repository.Test", "test\WebApi.Repository.Test\WebApi.Repository.Test.csproj", "{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.BusinessLogic", "src\WebApi.BusinessLogic\WebApi.BusinessLogic.csproj", "{02FDE901-F641-4EF3-810E-453461F17A4A}"
 EndProject
 Global
@@ -25,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2C10E74F-B5AD-4C6A-9B47-056E349ECD59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2C10E74F-B5AD-4C6A-9B47-056E349ECD59}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2C10E74F-B5AD-4C6A-9B47-056E349ECD59}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2C10E74F-B5AD-4C6A-9B47-056E349ECD59}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCFC999E-96D0-4F1E-931C-5977AC5B466E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCFC999E-96D0-4F1E-931C-5977AC5B466E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCFC999E-96D0-4F1E-931C-5977AC5B466E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,10 +41,6 @@ Global
 		{774BE3D8-1F3B-4871-9610-915B16B5AE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{774BE3D8-1F3B-4871-9610-915B16B5AE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{774BE3D8-1F3B-4871-9610-915B16B5AE7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C8452E7-AC7B-411C-AF6F-5E44CBC05334}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02FDE901-F641-4EF3-810E-453461F17A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{02FDE901-F641-4EF3-810E-453461F17A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02FDE901-F641-4EF3-810E-453461F17A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
