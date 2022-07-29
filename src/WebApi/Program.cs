@@ -24,6 +24,7 @@ var connectionString = config.GetConnectionString("FootballTurfDB");
 if (Environment.GetEnvironmentVariable("CONNECTION_STRING") is not null)
 {
     connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+    Console.WriteLine(connectionString);
 }
 
 builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
