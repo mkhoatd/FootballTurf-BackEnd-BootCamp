@@ -21,13 +21,18 @@ var config = builder.Configuration;
 // Add services to the container.
 var connectionString = config.GetConnectionString("FootballTurfDB");
 
+if (Environment.GetEnvironmentVariable("CONNECTIONSTRING_DOCKER") is not null)
+{
+    connectionString = Environment.GetEnvironmentVariable("CONNECTIONSTRING_DOCKER");
+}
+
 if (Environment.GetEnvironmentVariable("DATABASE_URL") is not null)
 {
     var m = Regex.Match(Environment.GetEnvironmentVariable("DATABASE_URL")!, @"postgres://(.*):(.*)@(.*):(.*)/(.*)");
     connectionString = ($"Server={m.Groups[3]};Port={m.Groups[4]};User Id={m.Groups[1]};Password={m.Groups[2]};Database={m.Groups[5]};sslmode=Prefer;Trust Server Certificate=true");
     System.Console.WriteLine(connectionString);
 }
-
+System.Console.WriteLine(connectionString);
 builder.Services.AddDbContext<AppFootballTurfDbContext>(options =>
     options.UseNpgsql(connectionString));
 
